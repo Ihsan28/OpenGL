@@ -8,6 +8,41 @@ GLfloat i = 0.0f;
 GLfloat z = 0.0f;
 GLfloat k = 0.0f;
 
+GLfloat position = 0.0f;
+GLfloat position1 = 0.0f;
+GLfloat speed = 0.1f;
+
+void update(int value) {
+
+    if(position <-1.0)
+        position = 1.0f;
+
+    position -= speed; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update, 0);
+}
+void update1(int value) {
+
+    if(position1>1.0)
+        position1 = -1.0f;
+
+    position1 += speed; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update1, 0);
+}
+
+
+void screen()
+{
+    gluOrtho2D(-2,2,-2,2);
+}
+
 void Idle()
 {
     glutPostRedisplay();//// marks the current window as needing to be redisplayed
@@ -64,6 +99,8 @@ void display()
 
     //quads end
     //water end
+    glPushMatrix();
+    glTranslatef(position,0,0);
 
     //ship 2
 
@@ -164,14 +201,6 @@ void display()
 
     //quads end
 
-    //triangle start
-    //9
-    glBegin(GL_TRIANGLES);
-    glColor3ub(102, 0, 0);
-    glVertex2f(0.3f, -0.2f);
-    glVertex2f(0.1f, -0.3f);
-    glVertex2f(0.3f, -0.3f);
-    glEnd();
 
     //triangle end
 
@@ -185,6 +214,12 @@ void display()
     glEnd();
 
     //triangle end
+    glPopMatrix();
+
+
+
+   //glFlush();
+
 
     //1
     x = -0.2f;
@@ -204,129 +239,7 @@ void display()
     glEnd();
 
 
-    // new ship 2 with new co
-    //d
-    glTranslatef(-.7,0,0);
-    glScalef(.6,.6,0);
 
-    //ship 2
-
-    //1
-    //polygon began
-    glBegin(GL_POLYGON);
-
-    glColor3ub(37, 31, 29);
-    glVertex2f(0.8f, -0.4f);
-    glVertex2f(0.0f, -0.4f);
-    glVertex2f(0.1f, -0.5f);
-    glVertex2f(0.7f, -0.5f);
-
-    glEnd();
-
-    //polygon end
-
-    //triangle start
-    //2
-    glBegin(GL_TRIANGLES);
-    glColor3ub(102, 0, 0);
-    glVertex2f(0.9f, -0.3f);
-    glVertex2f(0.7f, -0.4f);
-    glVertex2f(0.8f, -0.4f);
-    glEnd();
-
-    //triangle end
-
-    //quads start
-    //3
-    glBegin(GL_QUADS);
-    glColor3ub(41, 84, 44);
-    glVertex2f(0.6f, -0.3f);
-    glVertex2f(0.5f, -0.3f);
-    glVertex2f(0.5f, -0.4f);
-    glVertex2f(0.6f, -0.4f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //4
-    glBegin(GL_QUADS);
-    glColor3ub(22, 29, 111);
-    glVertex2f(0.6f, -0.2f);
-    glVertex2f(0.5f, -0.2f);
-    glVertex2f(0.5f, -0.3f);
-    glVertex2f(0.6f, -0.3f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //5
-    glBegin(GL_QUADS);
-    glColor3ub(152, 158, 38);
-    glVertex2f(0.5f, -0.2f);
-    glVertex2f(0.4f, -0.2f);
-    glVertex2f(0.4f, -0.3f);
-    glVertex2f(0.5f, -0.3f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //6
-    glBegin(GL_QUADS);
-    glColor4f(1.0f, 0.0f, 0.0f, 0.0f);
-    glVertex2f(0.5f, -0.3f);
-    glVertex2f(0.4f, -0.3f);
-    glVertex2f(0.4f, -0.4f);
-    glVertex2f(0.5f, -0.4f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //7
-    glBegin(GL_QUADS);
-    glColor3ub(0, 0, 255);
-    glVertex2f(0.4f, -0.3f);
-    glVertex2f(0.2f, -0.3f);
-    glVertex2f(0.2f, -0.4f);
-    glVertex2f(0.4f, -0.4f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //8
-    glBegin(GL_QUADS);
-    glColor4f(1.0f, 1.0f, 0.0f, 0.0f);
-    glVertex2f(0.2f, -0.3f);
-    glVertex2f(0.1f, -0.3f);
-    glVertex2f(0.1f, -0.4f);
-    glVertex2f(0.2f, -0.4f);
-    glEnd();
-
-    //quads end
-
-    //triangle start
-    //9
-    glBegin(GL_TRIANGLES);
-    glColor3ub(102, 0, 0);
-    glVertex2f(0.3f, -0.2f);
-    glVertex2f(0.1f, -0.3f);
-    glVertex2f(0.3f, -0.3f);
-    glEnd();
-
-    //triangle end
-
-    //triangle start
-    //10
-    glBegin(GL_TRIANGLES);
-    glColor3ub(102, 0, 0);
-    glVertex2f(0.1f, -0.4f);
-    glVertex2f(-0.1f, -0.3f);
-    glVertex2f(0.0f, -0.4f);
-    glEnd();
 
     //triangle end
 
@@ -704,6 +617,8 @@ void display()
     }
     glEnd();
 
+     glPushMatrix();
+     glTranslatef(position1,0,0);
 
     //ship 3 start
 
@@ -783,88 +698,9 @@ void display()
     //quads end
 
     //ship 3 end
+    glPopMatrix();
 
-    //new ship 3
-    //ship 3 start
 
-    //polygon began
-    //1
-    glTranslatef(.9,-.1,0);
-    glScalef(1.2,1.2,0);
-    glBegin(GL_POLYGON);
-
-    glColor3ub(0, 0, 0);
-    glVertex2f(-0.3f, -0.65f);
-    glVertex2f(-0.9f, -0.65f);
-    glVertex2f(-0.8f, -0.7f);
-    glVertex2f(-0.4f, -0.7f);
-
-    glEnd();
-
-    //polygon end
-
-    //polygon began
-    //2
-    glBegin(GL_POLYGON);
-
-    glColor3ub(102, 0, 0);
-    glVertex2f(-0.2f, -0.6f);
-    glVertex2f(-1.0f, -0.6f);
-    glVertex2f(-0.9f, -0.65f);
-    glVertex2f(-0.3f, -0.65);
-
-    glEnd();
-
-    //polygon end
-
-    //quads start
-    //3
-    glBegin(GL_QUADS);
-   glColor3f(1.0f, 0.5f, 0.0f);
-    glVertex2f(-0.4f, -0.55f);
-    glVertex2f(-0.8f, -0.55f);
-    glVertex2f(-0.8f, -0.6f);
-    glVertex2f(-0.4f, -0.6f);
-    glEnd();
-
-    //quads end
-    //quads start
-    //4
-    glBegin(GL_QUADS);
-    glColor3ub(0, 0, 0);
-    glVertex2f(-0.7f, -0.4f);
-    glVertex2f(-0.75f, -0.4f);
-    glVertex2f(-0.75f, -0.55f);
-    glVertex2f(-0.7f, -0.55f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //5
-    glBegin(GL_QUADS);
-    glColor3ub(0, 0, 0);
-    glVertex2f(-0.55f, -0.4f);
-    glVertex2f(-0.65f, -0.4f);
-    glVertex2f(-0.65f, -0.55f);
-    glVertex2f(-0.55f, -0.55f);
-    glEnd();
-
-    //quads end
-
-    //quads start
-    //6
-    glBegin(GL_QUADS);
-    glColor3ub(0, 0, 0);
-    glVertex2f(-0.45f, -0.4f);
-    glVertex2f(-0.5f, -0.4f);
-    glVertex2f(-0.5f, -0.55f);
-    glVertex2f(-0.45f, -0.55f);
-    glEnd();
-
-    //quads end
-
-    //ship 3 end
     glLoadIdentity();
 
     //krain 2 start
@@ -1008,14 +844,20 @@ void display()
     //sun end
 }
 
-int main(int argc, char **argv)
-{
-    glutInit(&argc, argv);                 // Initialize GLUT
-	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
-	glutInitWindowSize(320, 320);   // Set the window's initial width & height
-	glutDisplayFunc(display); // Register display callback handler for window re-paint
-	glutIdleFunc(Idle);
-	glutMainLoop();           // Enter the event-processing loop
+int main(int argc, char** argv) {
+   glutInit(&argc, argv);
+   glutInitWindowSize(320, 320);
+   glutInitWindowPosition(50, 50);
+   glutCreateWindow("Translation Animation");
+  // screen();//Enable it for using gluortho2d function
+   glutDisplayFunc(display);
 
-	return 0;
+
+   glutTimerFunc(100, update, 0);
+    glutTimerFunc(100, update1, 0);
+
+
+   glutMainLoop();
+   return 0;
 }
+

@@ -8,7 +8,56 @@ GLfloat j = 0.0f;
 GLfloat h = 0.0f;
 GLfloat m = 0.0f;
 GLfloat s = 0.0f;
+GLfloat position = 0.0f;
+GLfloat speed = 0.1f;
 
+GLfloat position1 = 0.0f;
+GLfloat speed1 = 0.02f;
+
+GLfloat position2 = 0.015f;
+GLfloat speed2 = 0.01f;
+
+void update(int value) {
+
+    if(position <-1.0)
+        position = 1.4f;
+
+    position -= speed; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update, 0);
+}
+void update1(int value) {
+
+    if(position1 >1.0)
+        position1 = -1.5f;
+
+    position1 += speed1; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update1, 0);
+}
+void update2(int value) {
+
+    if(position2 <-1.5)
+        position2 = 1.0f;
+
+    position2 -= speed2; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update2, 0);
+}
+
+void screen()
+{
+    gluOrtho2D(-2,2,-2,2);
+}
 void Idle()
 {
     glutPostRedisplay();//// marks the current window as needing to be redisplayed
@@ -675,8 +724,10 @@ void display() {
 
 	//ship 1 copied to new coordinate
 	//ship 1 with new center
+    glPushMatrix();
+    glTranslatef(position,-.3,0);
 
-	glTranslatef(0.65,0,0);
+	//glTranslatef(0.65,0,0);
 
 	glBegin(GL_POLYGON);
     glColor3ub(67, 94, 114);
@@ -780,12 +831,15 @@ void display() {
 	glVertex2f(-0.42f, 0.04f);
     glEnd();
 
-
-    glLoadIdentity();
+    glPopMatrix();
+    //glLoadIdentity();
 
 
 
 	//ship 2
+	glPushMatrix();
+    glTranslatef(position1,-.1,0);
+
 	glBegin(GL_POLYGON);
     glColor3ub(118, 2, 2);
     glVertex2f(0.6f, -0.4f);    // ship 2 main body
@@ -841,12 +895,15 @@ void display() {
 	glVertex2f(0.49f, -0.34f);
     glEnd();
 
+    glPopMatrix();
 
 	//ship 2 copied different position
 	//new coordinate
 	//ship 2 new center with 1.5 times size
-	glTranslatef(-0.9,0,0);
-	glScalef(1.5,1.5,0);
+	glPushMatrix();
+    glTranslatef(position2,-.3,0);
+	//glTranslatef(-0.9,0,0);
+	glScalef(1.25,1.25,0);
 
 	glBegin(GL_POLYGON);
     glColor3ub(118, 2, 2);
@@ -903,7 +960,8 @@ void display() {
 	glVertex2f(0.49f, -0.34f);
     glEnd();
 
-	glLoadIdentity();
+    glPopMatrix();
+	//glLoadIdentity();
 	//ship 2 new end
 
     glBegin(GL_QUADS);
@@ -961,6 +1019,11 @@ int main(int argc, char** argv) {
 	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
 	glutInitWindowSize(320, 320);   // Set the window's initial width & height
 	glutDisplayFunc(display); // Register display callback handler for window re-paint
+
+    glutTimerFunc(100, update, 0);
+    glutTimerFunc(100, update1, 0);
+    glutTimerFunc(100, update2, 0);
+
 	glutIdleFunc(Idle);
 	glutMainLoop();           // Enter the event-processing loop
 

@@ -9,12 +9,12 @@ GLfloat h = 0.0f;
 GLfloat m = 0.0f;
 GLfloat s = 0.0f;
 GLfloat position = 0.0f;
-GLfloat speed = 0.1f;
+GLfloat speed = 0.05f;
 
 GLfloat position1 = 0.0f;
 GLfloat speed1 = 0.02f;
 
-GLfloat position2 = 0.015f;
+GLfloat position2 = 0.0f;
 GLfloat speed2 = 0.01f;
 
 void update(int value) {
@@ -52,6 +52,45 @@ void update2(int value) {
 
 
 	glutTimerFunc(100, update2, 0);
+}
+void handleMouse(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON){
+			speed += 0.01f;
+			}
+    if (button == GLUT_RIGHT_BUTTON)
+	{speed -= 0.01f;
+			}
+	glutPostRedisplay();
+}
+
+void handleKeypress(unsigned char key, int x, int y) {
+	switch (key) {
+case 'p':
+    speed1 = 0.0f;
+    break;
+case 'r':
+    speed1 = 0.02f;
+    break;
+glutPostRedisplay();
+	}
+}
+
+void SpecialInput(int key, int x, int y)
+{
+switch(key)
+{case GLUT_KEY_UP:
+speed2=.05;
+break;
+case GLUT_KEY_DOWN:
+speed2=.01;
+break;
+case GLUT_KEY_LEFT:
+speed2 += 0.01f;
+break;
+case GLUT_KEY_RIGHT:
+speed2 -= 0.01f;
+break;}
+glutPostRedisplay();
 }
 
 void screen()
@@ -113,10 +152,10 @@ void display() {
 
 
     int i;
-	GLfloat x=.8f; GLfloat y=.8f; GLfloat radius =.07f;
+	GLfloat x=.8f; GLfloat y=.8f; GLfloat radius =.09f;
 	int triangleAmount = 20; //# of triangles used to draw circle
 	GLfloat twicePi = 2.0f * PI;
-    glColor3ub(253, 195, 86);
+    glColor3ub(254,252,215);
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex2f(x, y); // center of circle
 		for(i = 0; i <= triangleAmount;i++) {
@@ -1019,6 +1058,10 @@ int main(int argc, char** argv) {
 	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
 	glutInitWindowSize(320, 320);   // Set the window's initial width & height
 	glutDisplayFunc(display); // Register display callback handler for window re-paint
+
+    glutKeyboardFunc(handleKeypress);
+    glutMouseFunc(handleMouse);
+    glutSpecialFunc(SpecialInput);
 
     glutTimerFunc(100, update, 0);
     glutTimerFunc(100, update1, 0);

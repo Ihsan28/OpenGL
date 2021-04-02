@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1617013475 source:c:\users\ihsan\onedrive\desktop\opengl\port_project\main.cpp
+1616865675 source:c:\users\ihsan\onedrive\documents\code blocks\padma\main.cpp
 	<windows.h>
 	<GL/glut.h>
 	<math.h>
@@ -222,7 +222,8 @@
 1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
 	<_mingw.h>
 
-1613338648 source:c:\users\ihsan\onedrive\documents\github\opengl\port_project\main.cpp
+1617309095 source:c:\users\ihsan\onedrive\desktop\opengl\padma\main.cpp
+	<iostream>
 	<windows.h>
 	<GL/glut.h>
 	<math.h>

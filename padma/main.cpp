@@ -186,7 +186,51 @@ void draw_window (GLfloat x, GLfloat y, GLfloat inc) {
    draw_quad(x, y, x + inc, y, x + inc, y + inc, x, y + inc, 90, 0, 0);
    draw_quad(x + inc*0.1, y + inc*0.1, x + inc - (inc*0.1), y + inc*0.1, x + inc - inc*0.1, y + inc - inc*0.1, x + inc*0.1, y + inc - inc*0.1, 50, 100, 90);
 }
+void draw_pillar(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat xs=1, GLfloat ys=1, GLfloat zs=1)
+{
+    glTranslatef(x, y, z);
+    glScalef(xs, ys, zs);
+    glBegin(GL_POLYGON);
+    glColor3ub(127, 127, 127);
+    glVertex2f(-0.69f, 0.0f);   // bridge pillar under bottom
+	glVertex2f(-0.86f, 0.0f);
+	glVertex2f(-0.86f, -0.03f);
+	glVertex2f(-0.83f, -0.07f);
+	glVertex2f(-0.72f, -0.07f);
+	glVertex2f(-0.69f, -0.03f);
+    glEnd();
 
+    glBegin(GL_POLYGON);
+    glColor3ub(132, 132, 132);
+    glVertex2f(-0.72f, 0.04f);   // bridge pillar bottom
+	glVertex2f(-0.83f, 0.04f);
+	glVertex2f(-0.86f, 0.0f);
+	glVertex2f(-0.83f, -0.04f);
+	glVertex2f(-0.72f, -0.04f);
+	glVertex2f(-0.69f, 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+	glColor3ub(138, 138, 138);    // bridge pillar head
+	glVertex2f(-0.7f, 0.18f);
+	glVertex2f(-0.85f, 0.18f);
+	glVertex2f(-0.85f, 0.14f);
+	glVertex2f(-0.7f, 0.14f);
+
+	glColor3ub(130, 130, 130);
+	glVertex2f(-0.85f, 0.14f);
+	glVertex2f(-0.83f, 0.12f);
+	glVertex2f(-0.72f, 0.12f);
+	glVertex2f(-0.7f, 0.14f);
+
+	glColor3ub(136, 136, 136);
+	glVertex2f(-0.72f, 0.12f);   // bridge pillar body
+	glVertex2f(-0.83f, 0.12f);
+	glVertex2f(-0.83f, 0.0f);
+	glVertex2f(-0.72f, 0.0f);
+    glEnd();
+
+}
 void draw_v_angle(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat r=150, GLfloat g=150, GLfloat b=150)
 {
     glTranslatef(x-.025,y,z);
@@ -230,7 +274,7 @@ void display() {
 
     draw_v_angle(0,.15,0,130,130,130);
     draw_v_angle(0.4,.15,0,130,130,130);
-    draw_v_angle(0.8,.15,0,130,130,130);          //train front side railing boundary
+    draw_v_angle(0.8,.15,0,130,130,130);          //train inner side railing boundary
     draw_v_angle(1.2,.15,0,130,130,130);
     draw_v_angle(1.6,.15,0,130,130,130);
 
@@ -264,15 +308,15 @@ void display() {
     draw_v_angle(1.6);
 
 	glBegin(GL_QUADS);
-	glColor3ub(136, 136, 136);    // bridge mid line x axis
+	glColor3ub(136, 136, 136);    // bridge side railing bottom axis
 	glVertex2f(1.0f, 0.18f);
 	glVertex2f(-1.0f, 0.18f);
 	glVertex2f(-1.0f, 0.16f);
 	glVertex2f(1.0f, 0.16);
 	glEnd();
 
-
-
+	draw_pillar();
+	draw_pillar(1.55);
     // Raining
     if (goRain) {
        glTranslatef(rainX, rainY, 0);

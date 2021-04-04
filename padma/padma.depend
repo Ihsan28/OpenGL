@@ -222,7 +222,7 @@
 1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
 	<_mingw.h>
 
-1617433507 source:c:\users\ihsan\onedrive\desktop\opengl\padma\main.cpp
+1617578706 source:c:\users\ihsan\onedrive\desktop\opengl\padma\main.cpp
 	<iostream>
 	<windows.h>
 	<GL/glut.h>

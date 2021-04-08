@@ -24,7 +24,7 @@ GLfloat position2 = 0.0f;
 GLfloat speed2 = 0.01f;
 
 GLfloat positionr = 0.0f;           //rain
-GLfloat speedr = 0.5f;
+GLfloat speedr = 0.7f;
 
 
 void update(int value) {
@@ -2904,96 +2904,57 @@ void Day_rain() {
     glPushMatrix();
     glLineWidth(2);
     glTranslatef(positionr,positionr,0);
-
 	glScalef(1,1,0);
+
     glBegin(GL_LINES);
 	glColor3ub(255,255,255);
 	glVertex2f(-0.96f,1.0f);             // 1st raindrop from left
 	glVertex2f(-1.0f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(-0.76f,1.0f);             // 1st_2 raindrop from left
-	glVertex2f(-0.8f,0.9f);
-	glEnd();
+	glVertex2f(-0.76f,0.9f);             // 1st_2 raindrop from left
+	glVertex2f(-0.8f,0.8f);
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(-0.56f,1.0f);             // 2nd raindrop from left
 	glVertex2f(-0.6f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(-0.36f,1.0f);             // 2nd_3 raindrop from left
-	glVertex2f(-0.4f,0.9f);
-	glEnd();
+	glVertex2f(-0.36f,0.9f);             // 2nd_3 raindrop from left
+	glVertex2f(-0.4f,0.8f);
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(-0.16f,1.0f);             // 3rd raindrop from left
 	glVertex2f(-0.2f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(0.02f,1.0f);             // 3rd_4 raindrop from left
-	glVertex2f(-0.02f,0.9f);
-	glEnd();
+	glVertex2f(0.02f,0.9f);             // 3rd_4 raindrop from left
+	glVertex2f(-0.02f,0.8f);
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(0.2f,1.0f);             // 4th raindrop from left
 	glVertex2f(0.16f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(0.4f,1.0f);             // 4th_5 raindrop from left
-	glVertex2f(0.36f,0.9f);
-	glEnd();
+	glVertex2f(0.4f,0.9f);             // 4th_5 raindrop from left
+	glVertex2f(0.36f,0.8f);
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(0.6f,1.0f);             // 5th raindrop from left
 	glVertex2f(0.56f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(0.8f,1.0f);             // 5th_6 raindrop from left
-	glVertex2f(0.76f,0.9f);
-	glEnd();
-
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
+	glVertex2f(0.8f,0.9f);             // 5th_6 raindrop from left
+	glVertex2f(0.76f,0.8f);
+;
 	glVertex2f(1.0f,1.0f);             // 6th raindrop from left
 	glVertex2f(0.96f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(1.2f,1.0f);             // 6th_7 raindrop from left
-	glVertex2f(1.16f,0.9f);
-	glEnd();
+	glVertex2f(1.2f,0.9f);             // 6th_7 raindrop from left
+	glVertex2f(1.16f,0.8f);
 
-    glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(1.4f,1.0f);             // 7th raindrop from left
 	glVertex2f(1.36f,0.9f);
-	glEnd();
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(1.6f,1.0f);             // 7th_8 raindrop from left
-	glVertex2f(1.56f,0.9f);
-	glEnd();
+	glVertex2f(1.6f,0.9f);             // 7th_8 raindrop from left
+	glVertex2f(1.56f,0.8f);
 
-	glBegin(GL_LINES);
-	glColor3ub(255,255,255);
 	glVertex2f(1.8f,1.0f);             // 8th raindrop from left
 	glVertex2f(1.76f,0.9f);
+
+	glVertex2f(2.0f,0.9f);             // 8th_9 raindrop from left
+	glVertex2f(1.96f,0.8f);
 	glEnd();
 
 	glPopMatrix();

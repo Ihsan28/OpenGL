@@ -6,12 +6,12 @@ using namespace std;
 #include<math.h>>
 # define PI           3.14159265358979323846
 
-GLfloat rainX = 0.0f, rainY = 0.0f;
+GLfloat rain_pos = 0.0f;
 GLfloat day_r = 1.0f, day_g = 1.0f, day_b = 0.8f;
 GLfloat sun_x = 800.0f, sun_y = 850.0f, sun_r = 1.0f, sun_g = 0.7f, sun_b = 0.0f;
 GLfloat birdX=0.7f,birdY=-0.15f;
 
-bool goRain = false, day = true;
+bool is_rain = true, day = true;
 
 void birdMoves(int x)
 {
@@ -59,16 +59,70 @@ void bird()
 }
 
 
-void keepRaining (int v) {
-   if (goRain) {
-     rainX -= 0.2f;
-     rainY -= 0.2f;
-     if (rainX < -0.2f) {
-      rainX = 0.0f;
-      rainY = 0.0f;
+void keep_raining (int v) {
+   if (is_rain) {
+     rain_pos -= 0.1f;
+     if (rain_pos < -2.0f) {
+      rain_pos = 1.0f;
      }
-     glutTimerFunc(100, keepRaining, 0);
+     glutTimerFunc(100, keep_raining, 9);
    }
+}
+
+void rain()
+{
+    glBegin(GL_LINES);
+	glColor3ub(255,255,255);
+	glVertex2f(-0.96f,1.0f);             // 1st raindrop from left
+	glVertex2f(-1.0f,0.9f);
+
+	glVertex2f(-0.76f,0.9f);             // 1st_2 raindrop from left
+	glVertex2f(-0.8f,0.8f);
+
+	glVertex2f(-0.56f,1.0f);             // 2nd raindrop from left
+	glVertex2f(-0.6f,0.9f);
+
+	glVertex2f(-0.36f,0.9f);             // 2nd_3 raindrop from left
+	glVertex2f(-0.4f,0.8f);
+
+	glVertex2f(-0.16f,1.0f);             // 3rd raindrop from left
+	glVertex2f(-0.2f,0.9f);
+
+	glVertex2f(0.02f,0.9f);             // 3rd_4 raindrop from left
+	glVertex2f(-0.02f,0.8f);
+
+	glVertex2f(0.2f,1.0f);             // 4th raindrop from left
+	glVertex2f(0.16f,0.9f);
+
+	glVertex2f(0.4f,0.9f);             // 4th_5 raindrop from left
+	glVertex2f(0.36f,0.8f);
+
+	glVertex2f(0.6f,1.0f);             // 5th raindrop from left
+	glVertex2f(0.56f,0.9f);
+
+	glVertex2f(0.8f,0.9f);             // 5th_6 raindrop from left
+	glVertex2f(0.76f,0.8f);
+
+	glVertex2f(1.0f,1.0f);             // 6th raindrop from left
+	glVertex2f(0.96f,0.9f);
+
+	glVertex2f(1.2f,0.9f);             // 6th_7 raindrop from left
+	glVertex2f(1.16f,0.8f);
+
+	glVertex2f(1.4f,1.0f);             // 7th raindrop from left
+	glVertex2f(1.36f,0.9f);
+
+	glVertex2f(1.6f,0.9f);             // 7th_8 raindrop from left
+	glVertex2f(1.56f,0.8f);
+
+	glVertex2f(1.8f,1.0f);             // 8th raindrop from left
+	glVertex2f(1.76f,0.9f);
+
+	glVertex2f(2.0f,0.9f);             // 8th_9 raindrop from left
+	glVertex2f(1.96f,0.8f);
+	glEnd();
+
+	glPopMatrix();
 }
 
 void raiseMoon (int v) {
@@ -177,15 +231,22 @@ void draw_quad (GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat x3, GLfl
     glEnd();
 }
 
-void draw_building (GLfloat x1, GLfloat y1, GLfloat height, GLfloat weight)
+void draw_container (GLfloat x1, GLfloat y1, GLfloat height, GLfloat weight, GLfloat r=40, GLfloat g=70, GLfloat b=70)
 {
-   draw_quad(x1, y1, x1 + weight, y1, x1 + weight, y1 + height, x1, y1 + height, 40, 70, 70);
+    glBegin(GL_QUADS);
+    glColor3ub(r, g, b);
+    glVertex2f(x1, y1);
+    glVertex2f(x1 + weight, y1);
+    glVertex2f(x1 + weight, y1 + height);
+    glVertex2f(x1, y1 + height);
+    glEnd();
 }
 
 void draw_window (GLfloat x, GLfloat y, GLfloat inc) {
    draw_quad(x, y, x + inc, y, x + inc, y + inc, x, y + inc, 90, 0, 0);
    draw_quad(x + inc*0.1, y + inc*0.1, x + inc - (inc*0.1), y + inc*0.1, x + inc - inc*0.1, y + inc - inc*0.1, x + inc*0.1, y + inc - inc*0.1, 50, 100, 90);
 }
+
 void draw_pillar(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat xs=1, GLfloat ys=1, GLfloat zs=1)
 {
     glTranslatef(x, y, z);
@@ -230,7 +291,9 @@ void draw_pillar(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat xs=1, GLfloat ys
 	glVertex2f(-0.72f, 0.0f);
     glEnd();
 
+    glLoadIdentity();
 }
+
 void draw_v_angle(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat r=150, GLfloat g=150, GLfloat b=150)
 {
     glTranslatef(x-.025,y,z);
@@ -317,17 +380,27 @@ void display() {
 
 	draw_pillar();
 	draw_pillar(1.55);
+    glPushMatrix();
+
     // Raining
-    if (goRain) {
-       glTranslatef(rainX, rainY, 0);
-	   for (double i = -1.0f; i < 1.0f; i += 0.15f) {
-          for (double j = -1.0f; j < 1.0f; j += 0.15f) {
-            draw_line(i * 1000, j * 1000, (i - 0.1f) * 1000, (j - 0.1f) * 1000, 1, 1, 1, 1);
+    if (is_rain) {
+        glPushMatrix();
+        glTranslatef(0, rain_pos, 0);
+	    for (double i = -1.2f; i < 1.2f; i += 0.15f) {
+          for (double j = 2.5f; j >= -1.0f; j -= 0.4f) {
+            draw_line(i, j, (i - 0.05f), (j - 0.1f), 250, 250, 250, 1);
           }
-	   }
-	   glLoadIdentity();
+	    }
+        glPopMatrix();
+	    glLoadIdentity();
     }
+
     // End
+    //glPushMatrix();
+    //glLineWidth(2);
+    //glTranslatef(positionr,positionr,0);
+	//glScalef(1,1,0);
+	//glPopMatrix();
 
 	glLoadIdentity();
     glFlush();
@@ -339,6 +412,8 @@ int main(int argc, char** argv) {
 	glutInitWindowSize(1280, 720);         // Set the window's initial width & height
 	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
 	glutDisplayFunc(display);              // Register display callback handler for window re-paint
+
+	glutTimerFunc(100, keep_raining, 0);
 
 	glutIdleFunc(Idle);
 	glutMainLoop();                        // Enter the event-processing loop

@@ -317,12 +317,13 @@ void draw_window (GLfloat x, GLfloat y, GLfloat inc) {
 
 void rail_line(GLfloat y=0,GLfloat r=40, GLfloat g=70, GLfloat b=70)
 {
-    for (double i = -1.0f; i < 1.0f; i += .08) {
-            draw_line(i, y, i , (y + 0.05f), r, g, b, 4.0);         // vertical line on padma bridge
+    for (double i = -1.1f; i < 1.1f; i += .07) {
+            draw_line(i, y-.01, i, (y + 0.04f), r, g, b, 8.0);         // vertical line on padma bridge
     }
 
-    draw_line(-1.0,y,1.0,y,r,g,b,2);
-    draw_line(-1.0,y+.05,1.0,y+.05,r,g,b,2);
+
+    draw_line(-1.0,y+.03,1.0,y+.03,r,g,b,3);
+    draw_line(-1.0,y,1.0,y,r,g,b,3);
 }
 
 void draw_pillar(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat xs=1, GLfloat ys=1, GLfloat zs=1)
@@ -427,6 +428,10 @@ void display() {
 	glVertex2f(1.0f, 0.44);
     glEnd();
 
+    draw_line(-1.0f, 0.59f, 1.0f, 0.59f,136, 136, 136,10); // bridge back side railing
+
+    draw_line(-1.0f, 0.51f, 1.0f, 0.51f,136, 136, 136,7); // bridge back side railing
+
 	glBegin(GL_LINES);
 	glColor3ub(136, 136, 136);
 	glVertex2f(-1.0f, 0.51f);                // bridge road mid line
@@ -442,13 +447,16 @@ void display() {
 	glVertex2f(1.0f, 0.18f);
     glEnd();
 
-    rail_line(0.19);
+    rail_line(0.205);
+    rail_line(0.27);
 
     draw_v_angle(0);
     draw_v_angle(0.4);
     draw_v_angle(0.8);          //train front side railing boundary
     draw_v_angle(1.2);
     draw_v_angle(1.6);
+
+    draw_line(-1.0f, 0.43f,1.0f, 0.43f,136, 136, 136,10);        // bridge road front side railing
 
 	glBegin(GL_QUADS);
 	glColor3ub(136, 136, 136);    // bridge side railing bottom axis
@@ -462,7 +470,7 @@ void display() {
 	draw_pillar(1.55);
     glPushMatrix();
 
-    draw_container_3d(0.0,0.0,0.3,0.7);
+    draw_container_3d(0.0,0.0,0.12,0.25);
 
     // Raining
     if (is_rain) {

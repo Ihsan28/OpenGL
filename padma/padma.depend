@@ -228,3 +228,9 @@
 	<GL/glut.h>
 	<math.h>
 
+1619970045 source:c:\users\ihsan\onedrive\documents\github\opengl\padma\main.cpp
+	<iostream>
+	<windows.h>
+	<GL/glut.h>
+	<math.h>
+

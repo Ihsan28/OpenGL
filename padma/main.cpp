@@ -7,11 +7,12 @@ using namespace std;
 # define PI           3.14159265358979323846
 
 GLfloat rain_pos = 0.0f, rain_speedX=0.15f, rain_speedY=0.3f;
-GLfloat day_r = 1.0f, day_g = 1.0f, day_b = 0.8f;
-GLfloat sun_x = 800.0f, sun_y = 850.0f, sun_r = 1.0f, sun_g = 0.7f, sun_b = 0.0f;
+int sky_r = 10, sky_g = 13, sky_b = 44, moon_r = 254, moon_g = 252, moon_b = 215;
+GLfloat sun_x = .8f, sun_y = .8f, moon_x=0.0f, moon_y=0.0f ;
 GLfloat birdX=0.7f,birdY=-0.15f;
 
 bool is_rain = false, day = true;
+void day_night (int v);
 
 void handleKeypress(unsigned char key, int x, int y) {
 	switch (key) {
@@ -32,12 +33,25 @@ glutPostRedisplay();
 }
 
 void handleMouse(int button, int state, int x, int y) {
-	if (button == GLUT_LEFT_BUTTON){
+	if (button == GLUT_LEFT_BUTTON)
+	{
+	    if (day) {
+        day = false;
+         //bird();
 
-			}
-    if (button == GLUT_RIGHT_BUTTON){
+        glutTimerFunc(100, day_night, 0);
+      }
+	}
 
-			}
+    if (button == GLUT_RIGHT_BUTTON)
+    {
+        if (!day) {
+
+        day = true;
+        glutTimerFunc(100, day_night, 0);
+
+      }
+    }
 	glutPostRedisplay();
 }
 
@@ -174,20 +188,27 @@ void rain()
 }
 
 void raiseMoon (int v) {
-   if (sun_b == 0.0f) {
-     sun_g = 1.0f; sun_b = 1.0f;
-   }
-   if (sun_y < 850.0f) {
-     sun_y += 10.0f;
+   if (moon_r < 254 || moon_g<252 || moon_b<215) {
+        if(moon_r < 254)
+        {
+            moon_r += 3;
+        }
+
+        if(moon_g < 252)
+        {
+            moon_g += 3;
+        }
+        if(moon_b < 252)
+        {
+            moon_b += 3;
+        }
+
      glutTimerFunc(100, raiseMoon, 0);
    }
    else return;
 }
 
 void raiseSun (int v) {
-   if (sun_b == 1.0f) {
-     sun_g = 0.7f, sun_b = 0.0f;
-   }
    if (sun_y < 850.0f) {
      sun_y += 10.0f;
      glutTimerFunc(100, raiseSun, 0);
@@ -197,28 +218,62 @@ void raiseSun (int v) {
 
 void day_night (int v) {
    if (!day) {
-     if (day_r <= 0.0f && day_g <= 0.0f, day_b <= 0.0f) {
+     if (sky_r <= 10 && sky_g <= 13 && sky_b <= 44) {
 
         glutTimerFunc(100, raiseMoon, 0);
         return;
      }
 
-     if (day_g > 0.0f) day_g -= 0.03f;
-     else if (day_r > 0.0f) day_r -= 0.03f;
-     else if (day_b > 0.0f) day_b -= 0.03f;
-     if (sun_y > 400) sun_y -= 10.0f;
+     if (sky_r > 10)
+     {
+         sky_r -= 2;
+         moon_r=sky_r;
+     }
+     else if (sky_g > 13)
+     {
+         sky_g -= 7;
+         moon_g=sky_g;
+     }
+     else if (sky_b > 44)
+     {
+         sky_b -= 8;
+         moon_b=sky_b;
+     }
+
+     if (sun_y > .5f)
+     {
+         sun_y -= .05f;
+     }
+
      glutTimerFunc(100, day_night, 0);
    }
    else {
-     if (day_r == 1.0f && day_g == 1.0f && day_b == 0.8f) {
+     if (sky_r >= 50 && sky_g >= 153 && sky_b >= 204) {
        glutTimerFunc(100, raiseSun, 0);
       // bird();
        return;
      }
-     if (day_r < 1.0f) day_r += 0.03f;
-     else if (day_b < 0.8f) day_b += 0.03f;
-     else if (day_g < 1.0f) day_g += 0.03f;
-     if (sun_y > 400) sun_y -= 10.0f;
+     if (sky_r < 50)
+     {
+         sky_r += 2;
+         moon_r=sky_r;
+     }
+     else if (sky_g < 153)
+     {
+         sky_g += 7;
+         moon_g=sky_g;
+     }
+     else if (sky_b < 204)
+     {
+         sky_b += 8;
+         moon_b=sky_b;
+     }
+
+     if (sun_y < .8f)
+     {
+         sun_y += .05f;
+     }
+
      glutTimerFunc(100, day_night, 0);
    }
 }
@@ -396,15 +451,15 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
 
 	glBegin(GL_QUADS);
-    glColor3ub(10, 16, 43);
+    glColor3ub(sky_r, sky_g, sky_b);
     glVertex2f(1.0f, 1.0f);
 	glVertex2f(-1.0f, 1.0);
     glVertex2f(-1.0f, 0.0f);
     glVertex2f(1.0f, 0.0f);                // sky block
     glEnd();
 
-    draw_circle(.8,.8,.09,254,252,215);   //bright moon
-    draw_circle(.85,.82,.088,10,16,43);   //bright moon cover
+    draw_circle(.8,.8,.09,moon_r,moon_g,moon_b);   //bright moon
+    draw_circle(.85,.82,.088,sky_r, sky_g, sky_b);   //bright moon cover
 
     glBegin(GL_QUADS);
     glColor3ub(2, 41, 107);
@@ -498,6 +553,8 @@ int main(int argc, char** argv) {
 	glutDisplayFunc(display);              // Register display callback handler for window re-paint
 
 	glutTimerFunc(100, keep_raining, 0);
+	glutKeyboardFunc(handleKeypress);
+	glutMouseFunc(handleMouse);
 
 	glutIdleFunc(Idle);
 	glutMainLoop();                        // Enter the event-processing loop

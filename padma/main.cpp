@@ -6,12 +6,60 @@ using namespace std;
 #include<math.h>>
 # define PI           3.14159265358979323846
 
-GLfloat rain_pos = 0.0f;
+GLfloat rain_pos = 0.0f, rain_speedX=0.15f, rain_speedY=0.3f;
 GLfloat day_r = 1.0f, day_g = 1.0f, day_b = 0.8f;
 GLfloat sun_x = 800.0f, sun_y = 850.0f, sun_r = 1.0f, sun_g = 0.7f, sun_b = 0.0f;
 GLfloat birdX=0.7f,birdY=-0.15f;
 
-bool is_rain = true, day = true;
+bool is_rain = false, day = true;
+
+void handleKeypress(unsigned char key, int x, int y) {
+	switch (key) {
+case 'p':
+
+    break;
+case 'r':
+
+    break;
+case 'd':
+
+    break;
+case 'n':
+
+    break;
+glutPostRedisplay();
+	}
+}
+
+void handleMouse(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON){
+
+			}
+    if (button == GLUT_RIGHT_BUTTON){
+
+			}
+	glutPostRedisplay();
+}
+
+void SpecialInput(int key, int x, int y)
+{
+switch(key)
+{
+    case GLUT_KEY_UP:
+
+break;
+case GLUT_KEY_DOWN:
+
+break;
+case GLUT_KEY_LEFT:
+
+break;
+case GLUT_KEY_RIGHT:
+
+break;
+}
+glutPostRedisplay();
+}
 
 void birdMoves(int x)
 {
@@ -242,9 +290,39 @@ void draw_container (GLfloat x1, GLfloat y1, GLfloat height, GLfloat weight, GLf
     glEnd();
 }
 
+void draw_container_3d(GLfloat x1, GLfloat y1, GLfloat height, GLfloat weight, GLfloat r=40, GLfloat g=70, GLfloat b=70)
+{
+    GLfloat y2=y1 + height;
+    GLfloat h=height*.3;
+
+    glBegin(GL_QUADS);
+    glColor3ub(r, g, b);
+    glVertex2f(x1, y1);//A
+    glVertex2f(x1 + weight, y1);//B
+    glVertex2f(x1 + weight, y1 + height);//C
+    glVertex2f(x1, y1 + height);//D
+
+    glColor3ub(r-10, g-10, b-10);
+    glVertex2f(x1, y2);//A
+    glVertex2f(x1 + weight, y2);//B
+    glVertex2f(x1 + weight, y2 + h);//C
+    glVertex2f(x1, y2 + h);//D
+    glEnd();
+}
+
 void draw_window (GLfloat x, GLfloat y, GLfloat inc) {
    draw_quad(x, y, x + inc, y, x + inc, y + inc, x, y + inc, 90, 0, 0);
    draw_quad(x + inc*0.1, y + inc*0.1, x + inc - (inc*0.1), y + inc*0.1, x + inc - inc*0.1, y + inc - inc*0.1, x + inc*0.1, y + inc - inc*0.1, 50, 100, 90);
+}
+
+void rail_line(GLfloat y=0,GLfloat r=40, GLfloat g=70, GLfloat b=70)
+{
+    for (double i = -1.0f; i < 1.0f; i += .08) {
+            draw_line(i, y, i , (y + 0.05f), r, g, b, 4.0);         // vertical line on padma bridge
+    }
+
+    draw_line(-1.0,y,1.0,y,r,g,b,2);
+    draw_line(-1.0,y+.05,1.0,y+.05,r,g,b,2);
 }
 
 void draw_pillar(GLfloat x=0, GLfloat y=0, GLfloat z=0, GLfloat xs=1, GLfloat ys=1, GLfloat zs=1)
@@ -364,6 +442,8 @@ void display() {
 	glVertex2f(1.0f, 0.18f);
     glEnd();
 
+    rail_line(0.19);
+
     draw_v_angle(0);
     draw_v_angle(0.4);
     draw_v_angle(0.8);          //train front side railing boundary
@@ -382,25 +462,21 @@ void display() {
 	draw_pillar(1.55);
     glPushMatrix();
 
+    draw_container_3d(0.0,0.0,0.3,0.7);
+
     // Raining
     if (is_rain) {
         glPushMatrix();
-        glTranslatef(0, rain_pos, 0);
-	    for (double i = -1.2f; i < 1.2f; i += 0.15f) {
-          for (double j = 2.5f; j >= -1.0f; j -= 0.4f) {
-            draw_line(i, j, (i - 0.05f), (j - 0.1f), 250, 250, 250, 1);
+        glTranslatef(rain_pos, rain_pos, 0);
+	    for (double i = -2.0f; i < 3.0f; i += rain_speedX) {
+          for (double j = 2.5f; j >= -2.0f; j -= rain_speedY) {
+            draw_line(i, j, (i - 0.01f), (j - 0.05f), 250, 250, 250, 2.0);         // Raining on the padma bridge
           }
 	    }
         glPopMatrix();
 	    glLoadIdentity();
     }
 
-    // End
-    //glPushMatrix();
-    //glLineWidth(2);
-    //glTranslatef(positionr,positionr,0);
-	//glScalef(1,1,0);
-	//glPopMatrix();
 
 	glLoadIdentity();
     glFlush();

@@ -130,14 +130,42 @@ void handleKeypress(unsigned char key, int x, int y) {
 	switch (key) {
 case 'p':
 
+     speedc = 0.0f;
+     speedt = 0.0f;
+     speedtr = 0.0f;
+     speed = 0.0f;//rain
+     speedr = 0.0f;
+     speed1 = 0.0f;
+     speed2 = 0.0f;
+
+
     break;
 case 'r':
-
+    speedc = 0.02f;
+     speedt = 0.04f;
+     speedtr = 0.04f;
+     speed = 0.05f;//rain
+     speedr = 0.06f;
+     speed1 = 0.02f;
+     speed2 = 0.02f;
     break;
-case 'd':
-
+case '+':
+    speedc += 0.005f;
+     speedt += 0.009f;
+     speedtr += 0.009f;
+     speed += 0.009f;//rain
+     speedr += 0.005f;
+     speed1 += 0.005f;
+     speed2 += 0.005f;
     break;
-case 'n':
+case '_':
+    speedc -= 0.005f;
+     speedt -= 0.009f;
+     speedtr -= 0.009f;
+     speed -= 0.009f;//rain
+     speedr -= 0.005f;
+     speed1 -= 0.005f;
+     speed2 -= 0.005f;
 
     break;
 glutPostRedisplay();
@@ -177,7 +205,6 @@ switch(key)
             is_rain = false;
             sound2();
             glutPostRedisplay();
-
             //glutTimerFunc(100, keep_raining, 0);
             }
             break;
@@ -186,7 +213,6 @@ switch(key)
 
         is_rain = true;
         sound();
-
         glutTimerFunc(100, keep_raining, 0);
 
       }
@@ -226,61 +252,6 @@ void keep_raining (int v) {
    }
 }
 
-void rain()
-{
-    glBegin(GL_LINES);
-	glColor3ub(255,255,255);
-	glVertex2f(-0.96f,1.0f);             // 1st raindrop from left
-	glVertex2f(-1.0f,0.9f);
-
-	glVertex2f(-0.76f,0.9f);             // 1st_2 raindrop from left
-	glVertex2f(-0.8f,0.8f);
-
-	glVertex2f(-0.56f,1.0f);             // 2nd raindrop from left
-	glVertex2f(-0.6f,0.9f);
-
-	glVertex2f(-0.36f,0.9f);             // 2nd_3 raindrop from left
-	glVertex2f(-0.4f,0.8f);
-
-	glVertex2f(-0.16f,1.0f);             // 3rd raindrop from left
-	glVertex2f(-0.2f,0.9f);
-
-	glVertex2f(0.02f,0.9f);             // 3rd_4 raindrop from left
-	glVertex2f(-0.02f,0.8f);
-
-	glVertex2f(0.2f,1.0f);             // 4th raindrop from left
-	glVertex2f(0.16f,0.9f);
-
-	glVertex2f(0.4f,0.9f);             // 4th_5 raindrop from left
-	glVertex2f(0.36f,0.8f);
-
-	glVertex2f(0.6f,1.0f);             // 5th raindrop from left
-	glVertex2f(0.56f,0.9f);
-
-	glVertex2f(0.8f,0.9f);             // 5th_6 raindrop from left
-	glVertex2f(0.76f,0.8f);
-
-	glVertex2f(1.0f,1.0f);             // 6th raindrop from left
-	glVertex2f(0.96f,0.9f);
-
-	glVertex2f(1.2f,0.9f);             // 6th_7 raindrop from left
-	glVertex2f(1.16f,0.8f);
-
-	glVertex2f(1.4f,1.0f);             // 7th raindrop from left
-	glVertex2f(1.36f,0.9f);
-
-	glVertex2f(1.6f,0.9f);             // 7th_8 raindrop from left
-	glVertex2f(1.56f,0.8f);
-
-	glVertex2f(1.8f,1.0f);             // 8th raindrop from left
-	glVertex2f(1.76f,0.9f);
-
-	glVertex2f(2.0f,0.9f);             // 8th_9 raindrop from left
-	glVertex2f(1.96f,0.8f);
-	glEnd();
-
-	glPopMatrix();
-}
 
 void raiseMoon (int v) {
    if (moon_r < 254 || moon_g<252 || moon_b<215) {
@@ -1397,14 +1368,6 @@ void display() {
     lampost(-.8);
 
 
-    draw_line(0.0f, .43f, 0.0f,.57f,70,55,70,5);   // lampost
-    draw_line(0.0f,.57f,.03f,.6f,60,55,70,4);
-    draw_circle(.03f,.6f,.007);
-
-    draw_line(0.0f, .57f, 0.0f,.7f,70,55,70,5);   // lampost
-    draw_line(0.0f,.7f,.03f,.73f,60,55,70,4);
-    draw_circle(.03f,.73f,.007);
-
     glBegin(GL_QUADS);
     glColor3ub(33, 33, 33);
     glVertex2f(1.0f, 0.33f);
@@ -1465,7 +1428,7 @@ void display() {
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);                 // Initialize GLUT
 	glutInitWindowSize(1280, 720);         // Set the window's initial width & height
-	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
+	glutCreateWindow("Click left: nignt, Click right: day, Press down: rain, Press up: rain stop, Press p: stop all,Press r:start all,"); // Create a window with the given title
 	glutDisplayFunc(display);              // Register display callback handler for window re-paint
 
 	glutTimerFunc(100, keep_raining, 0);

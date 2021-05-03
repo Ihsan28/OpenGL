@@ -1,3009 +1,3022 @@
+#include <windows.h>  // for MS Windows
+#include <GL/glut.h>  // GLUT, include glu.h and gl.h
+#include<math.h>>
+# define PI           3.14159265358979323846
+void Day();
+void Night();
+void Day_rain();
+void day_demo(int a);
+void night_demo(int a);
+void day_rain_demo(int a);
+/* Handler for window-repaint event. Call back when the window first appears and
+whenever the window needs to be re-painted. */
+GLfloat j = 0.0f;
+GLfloat h = 0.0f;
+GLfloat m = 0.0f;
+GLfloat s = 0.0f;
+GLfloat position = 0.0f;
+GLfloat speed = 0.05f;
+
+GLfloat position1 = 0.0f;
+GLfloat speed1 = 0.02f;
+
+GLfloat position2 = 0.0f;
+GLfloat speed2 = 0.01f;
+
+GLfloat positionr = 0.0f;           //rain
+GLfloat speedr = 0.7f;
 
-#include<windows.h>
-#include <iostream>
-#include <stdlib.h>
-#include <math.h>
-#include <GL/glut.h>
-
-
-using namespace std;
-//Initializes 3D rendering
-void initRendering() {
-	glEnable(GL_DEPTH_TEST);
-}
-
-
-void handleResize(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(80.0, (double)w / (double)h, 1.0, 200.0);
-}
-float a = 0.1;
-float b = 0.1;
-float c = 0.1;
-float d = 0.1;
-float e = 0.1;
-float f = 0.1;
-float g = 0.1;
-float h = 0.1;
-float i = 0.1;
-float j = 0.1;
-
-float a1 = 0.1;
-float b1 = 0.1;
-float c1 = 0.1;
-float d1 = 0.1;
-float e1 = 0.1;
-float f1 = 0.1;
-float g1 = 0.1;
-float h1 = 0.1;
-float i1 = 0.1;
-
-float x = 0.1;
-float t = 0.1;
-
-float s1 = 0.1;
-float s2 = 0.1;
-float s3 = 0.1;
-float r1 = 0.1;
-
-int light = 1;      //1 for green-light, 0 for red-light
-int day = 1;
-
-
-
-
-
-
-float _angle = 0.0;
-float _cameraAngle = 0.0;
-float _ang_tri = 0.0;
-
-//Draws the 3D scene
-void drawScene()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glMatrixMode(GL_MODELVIEW); //Switch to the drawing perspective
-	glLoadIdentity(); //Reset the drawing perspective
-	glTranslatef(-6.5, -01.0, -5.0); //Move forward 5 uni4ts
-	glPushMatrix(); //Save the current state of transformations
-
-
-
-
-
-
-
-
-
-
-
-
-	//divider
-
-	glPushMatrix();
-	glTranslatef(0.0, 0.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(0.8, -0.60, 0.0);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-
-	glEnd();
-	glPopMatrix();
-
-	//end of divider
-	glPushMatrix();
-	glTranslatef(0.40, 0.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-
-	//standard format
-	glBegin(GL_POLYGON);
-	glVertex3f(0.8, -0.60, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, 0.0, 0.0);
-
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 1);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(01.20, 0.0, 0.0);
-	glColor3f(1.0, 1.0, 1.);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	glPushMatrix();
-	glTranslatef(01.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 1.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(02.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 1.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(02.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 1.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(02.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 1.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(03.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(03.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(04.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(04.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(04.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(05.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(05.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(06.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(06.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(06.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(07.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(07.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(08.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(08.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(08.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(09.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(09.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(10.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(10.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(10.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(11.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(11.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(12.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(12.40, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(12.80, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(13.20, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(13.60, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(14.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	glPushMatrix();
-	glTranslatef(-0.4, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.8, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-1.2, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-1.6, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-2.0, 0.0, 0.0);
-	glColor3f(01.0, 01.0, 01.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-2.4, 0.0, 0.0);
-	glColor3f(0.40, 0.30, 0.150);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(1.0, 0.0, 0.0);
-	glVertex3f(1.2, -0.0, 0.0);
-	glVertex3f(1.0, -0.60, 0.0);
-	glVertex3f(0.8, -0.60, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//end of divider
-
-
-
-
-	//car pink
-
-	if (e >= 0) {
-		e = e + .0195;
-	}
-	if (e>30.50) {
-		e = 0;
-	}
-
-
-	//Make Wheel
-	glPushMatrix();
-	glTranslatef(-4.9 + e, 0.4, 0.0); //Move to the center of the triangle
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.1, 0.1, 0.1);
-	glutSolidSphere(.120, 40, 25);  //(GLdouble innerRadius,GLdouble outerRadius,GLint nsides, GLint rings);
-	glPopMatrix();
-
-
-
-	glPushMatrix(); //Save the current state of transformations
-	glTranslatef(-4.2 + e, 0.4, 0.0); //Move to the center of the triangle
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.1, 0.1, 0.1);
-	glutSolidSphere(.120, 40, 5);  //(GLdouble innerRadius,GLdouble outerRadius,GLint nsides, GLint rings);
-	glPopMatrix();
-
-
-
-
-	// Car1 Body
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-3.2 + e, 0.15, 0.0);
-	glVertex3f(-2.9 + e, 0.15, 0.0);
-	glVertex3f(-2.9 + e, 0.45, 0.0);
-	glVertex3f(-3.25 + e, 0.32, 0.0);
-	glVertex3f(-3.25 + e, 0.20, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glBegin(GL_POLYGON);
-	glColor3f(0.80, 0.0, 0.80);
-	glVertex3f(-2.16 + e, 0.48, 0.0);
-	glVertex3f(-2.26 + e, 0.40, 0.0);
-	glVertex3f(-1.74 + e, 0.26, 0.0);
-	glVertex3f(-1.74 + e, 0.33, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.26 + e, 0.15, 0.0);
-	glVertex3f(-1.75 + e, 0.15, 0.0);
-	glVertex3f(-1.7 + e, 0.20, 0.0);
-	glVertex3f(-1.70 + e, 0.26, 0.0);
-	glVertex3f(-1.74 + e, 0.26, 0.0);
-	glVertex3f(-1.74 + e, 0.33, 0.0);
-	glVertex3f(-2.16 + e, 0.48, 0.0);
-	glVertex3f(-2.26 + e, 0.40, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Glass
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.26 + e, 0.41, 0.0);
-	glVertex3f(-2.165 + e, 0.485, 0.0);
-	glVertex3f(-2.295 + e, 0.69, 0.0);
-	glVertex3f(-2.35 + e, 0.67, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.27 + e, 0.41, 0.0);
-	glVertex3f(-2.36 + e, 0.66, 0.0);
-	glVertex3f(-2.55 + e, 0.66, 0.0);
-	glVertex3f(-2.56 + e, 0.41, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.57 + e, 0.41, 0.0);
-	glVertex3f(-2.58 + e, 0.66, 0.0);
-	glVertex3f(-2.75 + e, 0.66, 0.0);
-	glVertex3f(-2.88 + e, 0.41, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.80, 0.0, 0.80);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.75 + e, 0.66, 0.0);
-	glVertex3f(-2.36 + e, 0.66, 0.0);
-	glVertex3f(-2.285 + e, 0.70, 0.0);;
-	glVertex3f(-2.75 + e, 0.70, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//make door
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.54 + e, 0.41, 0.0);
-	glVertex3f(-2.56 + e, 0.41, 0.0);
-	glVertex3f(-2.40 + e, 0.15, 0.0);
-	glVertex3f(-2.42 + e, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.85 + e, 0.41, 0.0);
-	glVertex3f(-2.87 + e, 0.41, 0.0);
-	glVertex3f(-2.70 + e, 0.15, 0.0);
-	glVertex3f(-2.72 + e, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-02.0, 0.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.9 + e, 0.15, 0.0);
-	glVertex3f(-2.26 + e, 0.15, 0.0);
-	glVertex3f(-2.26 + e, 0.40, 0.0);
-	glVertex3f(-2.16 + e, 0.48, 0.0);
-	glVertex3f(-2.3 + e, 0.70, 0.0);
-	glVertex3f(-2.75 + e, 0.70, 0.0);
-	glVertex3f(-2.9 + e, 0.45, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-
-
-	//Make 2nd black Car
-
-
-	//glColor3f(0.0, 01.0, 01.0);
-	if (b >= 0) {
-		b = b + .033;
-	}
-	if (b>20.50) {
-		b = 0;
-	}
-
-
-	//Make Wheel
-	glPushMatrix();
-	glTranslatef(-2.35 + b, 0.45, 0.0); //Move to the center of the triangle
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(01.0, 01.0, 01.0);
-	glutSolidSphere(.10, 40, 25);  //(GLdouble innerRadius,GLdouble outerRadius,GLint nsides, GLint rings);
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-1.80 + b, 0.45, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(01.0, 01.0, 01.0);
-	glutSolidSphere(.10, 40, 5);
-	glPopMatrix();
-
-
-
-	//Make body
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glBegin(GL_POLYGON);
-	glColor3f(0.10, 0.10, 0.10);
-	glVertex3f(-2.16 + b, 0.48, 0.0);
-	glVertex3f(-2.26 + b, 0.40, 0.0);
-	glVertex3f(-1.83 + b, 0.32, 0.0);
-	glVertex3f(-1.84 + b, 0.40, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.26 + b, 0.15, 0.0);
-	glVertex3f(-1.85 + b, 0.15, 0.0);
-	glVertex3f(-1.8 + b, 0.20, 0.0);
-	glVertex3f(-1.80 + b, 0.32, 0.0);
-	glVertex3f(-1.82 + b, 0.32, 0.0);
-	glVertex3f(-1.84 + b, 0.40, 0.0);
-	glVertex3f(-2.16 + b, 0.48, 0.0);
-	glVertex3f(-2.26 + b, 0.415, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	// glass of 2nd car
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.26 + b, 0.43, 0.0);
-	glVertex3f(-2.165 + b, 0.485, 0.0);
-	glVertex3f(-2.265 + b, 0.67, 0.0);
-	glVertex3f(-2.32 + b, 0.64, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.27 + b, 0.43, 0.0);
-	glVertex3f(-2.33 + b, 0.64, 0.0);
-	glVertex3f(-2.50 + b, 0.64, 0.0);
-	glVertex3f(-2.50 + b, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.51 + b, 0.43, 0.0);
-	glVertex3f(-2.51 + b, 0.64, 0.0);
-	glVertex3f(-2.70 + b, 0.64, 0.0);
-	glVertex3f(-2.70 + b, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.71 + b, 0.43, 0.0);
-	glVertex3f(-2.71 + b, 0.64, 0.0);
-	glVertex3f(-2.83 + b, 0.64, 0.0);
-	glVertex3f(-2.91 + b, 0.45, 0.0);
-	glVertex3f(-2.91 + b, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.40, 0.32, 0.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.26 + b, 0.15, 0.0);
-	glVertex3f(-2.26 + b, 0.40, 0.0);
-	glVertex3f(-2.16 + b, 0.48, 0.0);
-	glVertex3f(-2.26 + b, 0.68, 0.0);
-	glVertex3f(-2.84 + b, 0.68, 0.0);
-	glVertex3f(-2.94 + b, 0.45, 0.0);
-	glVertex3f(-2.94 + b, 0.20, 0.0);
-	glVertex3f(-2.96 + b, 0.20, 0.0);
-	glVertex3f(-2.96 + b, 0.18, 0.0);
-	glVertex3f(-2.88 + b, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-
-	// MAke 3rd  blue Car
-
-	if (c >= 0) {
-		c = c + .029;
-	}
-	if (c>29.50) {
-		c = 0;
-	}
-
-
-	//Make Wheel
-
-	glPushMatrix();
-	glTranslatef(-5.7 + c, 0.55, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 25);
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-4.85 + c, 0.55, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 5);
-	glPopMatrix();
-
-
-	//Make glass of 3rd Car
-
-	glPushMatrix();
-	glTranslatef(-03.0, 0.40, 0.0);
-	glColor3f(0.40, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.77 + c, 0.46, 0.0);
-	glVertex3f(-1.87 + c, 0.63, 0.0);
-	glVertex3f(-2.04 + c, 0.63, 0.0);
-	glVertex3f(-2.04 + c, 0.46, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//Make Body
-
-	glPushMatrix();
-	glTranslatef(-03.0, 0.40, 0.0);
-	glColor3f(0.10, 0.30, 01.10);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.05 + c, 0.15, 0.0);
-	glVertex3f(-1.65 + c, 0.15, 0.0);
-	glVertex3f(-1.6 + c, 0.20, 0.0);
-	glVertex3f(-1.60 + c, 0.28, 0.0);
-	glVertex3f(-1.62 + c, 0.28, 0.0);
-	glVertex3f(-1.64 + c, 0.40, 0.0);
-	glVertex3f(-1.76 + c, 0.48, 0.0);
-	glVertex3f(-1.86 + c, 0.64, 0.0);
-	glVertex3f(-2.05 + c, 0.64, 0.0);
-
-
-
-	glPushMatrix();
-	glTranslatef(-03.0, 0.40, 0.0);
-	glColor3f(0.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.05 + c, 0.15, 0.0);
-	glVertex3f(-2.8 + c, 0.15, 0.0);
-	glVertex3f(-2.8 + c, 0.35, 0.0);
-	glVertex3f(-2.06 + c, 0.35, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-03.0, 0.40, 0.0);
-	glColor3f(0.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.8 + c, 0.45, 0.0);
-	glVertex3f(-2.8 + c, 0.14, 0.0);
-	glVertex3f(-2.83 + c, 0.14, 0.0);
-	glVertex3f(-2.83 + c, 0.16, 0.0);
-	glVertex3f(-2.85 + c, 0.16, 0.0);
-	glVertex3f(-2.85 + c, 0.18, 0.0);
-	glVertex3f(-2.83 + c, 0.18, 0.0);
-	glVertex3f(-2.83 + c, 0.45, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-
-	// MAke 4th white Car
-
-	if (d >= 0) {
-		d = d + .029;
-	}
-	if (d>19.50) {
-		d = 0;
-	}
-
-
-	//Make Wheel
-
-	glPushMatrix();
-	glTranslatef(-2.98 + d, 0.55, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 25);
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(-2.3 + d, 0.55, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 5);
-	glPopMatrix();
-
-	//Make glass of 4th Car
-
-	glPushMatrix();
-	glTranslatef(-0.40, 0.35, 0.0);
-	glColor3f(0.40, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.77 + d, 0.46, 0.0);
-	glVertex3f(-1.87 + d, 0.63, 0.0);
-	glVertex3f(-2.04 + d, 0.63, 0.0);
-	glVertex3f(-2.04 + d, 0.46, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Make Body
-
-	glPushMatrix();
-	glTranslatef(-0.40, 0.350, 0.0);
-	glColor3f(0.70, 0.70, 0.70);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.05 + d, 0.15, 0.0);
-	glVertex3f(-1.65 + d, 0.15, 0.0);
-	glVertex3f(-1.6 + d, 0.20, 0.0);
-	glVertex3f(-1.60 + d, 0.28, 0.0);
-	glVertex3f(-1.62 + d, 0.28, 0.0);
-	glVertex3f(-1.64 + d, 0.40, 0.0);
-	glVertex3f(-1.76 + d, 0.48, 0.0);
-	glVertex3f(-1.86 + d, 0.64, 0.0);
-	glVertex3f(-2.05 + d, 0.64, 0.0);
-	// glEnd();
-	// glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.40, 0.35, 0.0);
-	glColor3f(0.90, 0.90, 0.90);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.05 + d, 0.74, 0.0);
-	glVertex3f(-2.75 + d, 0.74, 0.0);
-	glVertex3f(-2.75 + d, 0.14, 0.0);
-	glVertex3f(-2.05 + d, 0.14, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(-0.40, 0.35, 0.0);
-	glColor3f(0.140, 0.140, 0.140);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.77 + d, 0.19, 0.0);
-	glVertex3f(-2.75 + d, 0.19, 0.0);
-	glVertex3f(-2.75 + d, 0.18, 0.0);
-	glVertex3f(-2.77 + d, 0.18, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Make Road
-
-	glPushMatrix();
-	glTranslatef(-0.7, -0.0, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(-12.8, 0.0, 0.0);
-	glVertex3f(20.5, 0.0, 0.0);
-	glVertex3f(20.5, 0.80, 0.0);
-	glVertex3f(-12.8, 0.80, 0.0);
-	glEnd();
-	glPopMatrix();
-	//new
-
-	//...........................................green foothpath
-
-
-	glPushMatrix();
-	glTranslatef(-0.7, -0.0, 0.0);
-	glColor3f(0.0, 1.0, 0.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(20.5, 1.0, 0.0);
-	glVertex3f(20.5, 1.4, 0.0);
-	glVertex3f(-12.8, 1.4, 0.0);
-	glVertex3f(-12.8, 1.0, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//Make 1st Footpath-standard
-
-	glPushMatrix();
-	glTranslatef(-0.7, -0.0, 0.0);
-	glColor3f(0.25, 0.25, 0.25);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(20.5, 0.80, 0.0);
-	glVertex3f(20.5, 01.0, 0.0);
-	glVertex3f(-12.8, 01.0, 0.0);
-	glVertex3f(-12.8, 0.80, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//............................................................
-
-
-	//...................................................header tree starts from here
-
-	/// Make Trees ///
-
-	glPushMatrix();
-	glTranslatef(05.5, 01.0, 0.0);
-	glColor3f(0.4, 0.21, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.35, 0.0, 0.0);
-	glVertex3f(-0.25, 0.0, 0.0);
-	glVertex3f(-0.25, 0.48, 0.0);
-	glVertex3f(-0.35, 0.480, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	///tree 1 ///
-
-
-	glPushMatrix();
-	glTranslatef(05.5, 01.0, 0.0);
-	glColor3f(0.4, 0.21, 1.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.35, 0.0, 0.0);
-	glVertex3f(-0.25, 0.0, 0.0);
-	glVertex3f(-0.25, 0.48, 0.0);
-	glVertex3f(-0.35, 0.480, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(05.380, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(05.550, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(05.40, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(05.520, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(05.480, 1.750, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-
-	/// 2 ///
-
-
-
-	glPushMatrix();
-	glTranslatef(08.0, 01.0, 0.0);
-	glColor3f(0.4, 0.21, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.35, 0.0, 0.0);
-	glVertex3f(-0.25, 0.0, 0.0);
-	glVertex3f(-0.25, 0.48, 0.0);
-	glVertex3f(-0.35, 0.480, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(07.380, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(07.550, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(07.40, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(07.520, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(07.480, 1.750, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-
-	/// 3///
-
-
-	glPushMatrix();
-	glTranslatef(010.50, 01.0, 0.0);
-	glColor3f(0.4, 0.21, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.35, 0.0, 0.0);
-	glVertex3f(-0.25, 0.0, 0.0);
-	glVertex3f(-0.25, 0.48, 0.0);
-	glVertex3f(-0.35, 0.480, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(09.380, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(09.550, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(09.40, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(09.520, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(09.480, 1.750, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	/// 6 ///
-
-
-	glPushMatrix();
-	glTranslatef(013.0, 01.0, 0.0);
-	glColor3f(0.4, 0.21, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.35, 0.0, 0.0);
-	glVertex3f(-0.25, 0.0, 0.0);
-	glVertex3f(-0.25, 0.48, 0.0);
-	glVertex3f(-0.35, 0.480, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(011.380, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(011.550, 1.380, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.15;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(011.40, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(011.520, 1.60, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(011.480, 1.750, 1.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 50;
-	float r = 0.12;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-	//......................................................header tree ends here
-
-
-
-
-	// ...............................................................1st red building - remake 3rd phase
-
-	glPushMatrix();
-	glTranslatef(4.40, 1.49, 0.0);
-	glColor3ub(255, 229, 204);
-	glBegin(GL_POLYGON);
-	glVertex3f(3.5, 2.0, 0.0); //1
-	glVertex3f(3.5, 03.0, 0.0); //2
-	glVertex3f(1.5, 03.0, 0.0); //3
-	glVertex3f(1.5, 2.0, 0.0); //4
-	glEnd();
-	glPopMatrix();
-
-	//.....................................................................................................
-
-	//..................................................................4th phase - choturvuj
-
-
-	glPushMatrix();
-	glTranslatef(1.88, .5, 0.0);
-	glColor3ub(255, 229, 204);
-	glBegin(GL_POLYGON);
-	glVertex3f(5.5, 2.6, 0.0); //1
-	glVertex3f(5.5, 03.0, 0.0); //2
-	glVertex3f(4.5, 03.0, 0.0); //3
-	glVertex3f(4.5, 2.6, 0.0); //4
-	glEnd();
-	glPopMatrix();
-	//................................................................................................
-
-	//..................................................................5th phase - oval5
-
-	glPushMatrix();
-	//glTranslatef(6,0,0);
-	glTranslatef(6.9, 3.1, 0.0);
-	glColor3f(0., .4, 0.);
-	glBegin(GL_POLYGON);
-
-	for (int i = 0; i<100; i++)
-	{
-		glPushAttrib(GL_CURRENT_BIT);
-		glColor3f(0.,0.4,0.);
-		glLineWidth(2.0);
-
-		// Draw center
-		glBegin(GL_POINTS);
-		glVertex2d(0, 0);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0.0f, 960, 600, 0.0f, 0.0f, 1.0f);
-
-		// This should generate a circle
-		for (GLfloat i = 0; i < 360; i++)
-		{
-			float x = cos(i*M_PI / 180.f) * 2.0; // keep the axes radius same
-			float y = sin(i*M_PI / 180.f) * 0.1;
-			glVertex2f(x, y);
-		}
-
-
-		glPopAttrib();
-	}
-
-	//.............................................................................
-
-
-
-	//..........................protected start
-	glPushMatrix();
-	glTranslatef(1.88, -4.0, 0.0);
-	glColor3f(0., .9, 0.9);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.0, 0.0, 0.0); //1
-	glVertex3f(0.0, 0.0, 0.0); //2
-	glVertex3f(0.0, 0.0, 0.0); //3
-	glVertex3f(0.0, 0.0, 0.0); //4
-	glEnd();
-	glPopMatrix();
-	//..........................protected
-	//.......................,,,,,,,,,,,,,,,,..6th coturvuj
-
-	glPushMatrix();
-	glTranslatef(01.0, -0.0, 0.0);
-	glColor3ub(255, 229, 204);
-	glBegin(GL_POLYGON);
-	glVertex3f(7.9, 01.0, 0.0);//1
-	glVertex3f(7.9, 03.1, 0.0);//2
-	glVertex3f(3.87, 03.1, 0.0);//3
-	glVertex3f(3.87, 01.0, 0.0);//4
-
-
-	glEnd();
-	glPopMatrix();
-
-
-
-
-
-	//golla2
-	glPushMatrix();
-	glTranslatef(10, 2.2, 0.0);
-	//glRotatef(_angle, 0.0, 0.0, 1.0);
-	glColor3ub(255, 229, 204);
-	glutSolidSphere(.80, 60, 25);
-	glPopMatrix();
-	 //mini golla2
-	glPushMatrix();
-	glTranslatef(10 , 1.7, .5);
-	//glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glutSolidSphere(.190, 53, 27);
-	glPopMatrix();
-
-
-
-	//.......................... 6-1
-
-
-
-	glPushMatrix();
-	glTranslatef(1.5, 0.9, 0.0);
-	glColor3ub(255, 229, 204);
-	glBegin(GL_POLYGON);
-	glVertex3f(3.87, 1.0, 0.0);//1
-	glVertex3f(3.87, 1.5, 0.0);//2
-	glVertex3f(2.0, 1.5, 0.0);//3
-	glVertex3f(2.0, 1.0, 0.0);//4
-	glEnd();
-	glPopMatrix();
-
-	//golla 1
-	glPushMatrix();
-	glTranslatef(3.5, 2.2, 0.0);
-	//glRotatef(_angle, 0.0, 0.0, 1.0);
-	glColor3ub(255, 229, 204);
-	glutSolidSphere(.80, 60, 25);
-
-	glPopMatrix();
-	//mini golla1
-	glPushMatrix();
-	glTranslatef(2.7 , 2.00, 0.0);
-	//glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(.10, 0.10, 0.10);
-	glutSolidSphere(.190, 60, 25);
-	glPopMatrix();
-
-
-	//....................................
-
-	//.......................... 6-2
-
-
-	glPushMatrix();
-	glTranslatef(6.5, 0.9, 0.0);
-	glColor3ub(255, 229, 204);
-	glBegin(GL_POLYGON);
-	glVertex3f(3.87, 1.0, 0.0);//1
-	glVertex3f(3.87, 1.5, 0.0);//2
-	glVertex3f(2.0, 1.5, 0.0);//3
-	glVertex3f(2.0, 1.0, 0.0);//4
-
-
-	glEnd();
-	glPopMatrix();
-
-
-
-
-	//....................................
-
-
-	///Make BUildings ///
-
-
-	//1
-	glPushMatrix();
-	glTranslatef(01.0, -0.0, 0.0);
-	glColor3f(01., 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.8, 01.0, 0.0);
-	glVertex3f(-1.5, 01.0, 0.0);
-	glVertex3f(-1.5, 03.0, 0.0);
-	glVertex3f(-2.8, 03.0, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(01.0, -0.0, 0.0);
-	glColor3f(0.6, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.5, 03.0, 0.0);
-	glVertex3f(-1.5, 01.0, 0.0);
-	glVertex3f(-1.2, 01.0, 0.0);
-	glVertex3f(-1.2, 2.6, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//2
-
-	glPushMatrix();
-	glTranslatef(0.950, -0.0, 0.0);
-	glColor3f(0.0, 0.80, 0.3);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.1, 01.0, 0.0);
-	glVertex3f(0.0, 1.0, 0.0);
-	glVertex3f(0.0, 03.4, 0.0);
-	glVertex3f(-1.1, 03.40, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(0.950, -0.0, 0.0);
-	glColor3f(0.0, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.0, 03.4, 0.0);
-	glVertex3f(0.0, 1.0, 0.0);
-	glVertex3f(0.2, 1.0, 0.0);
-	glVertex3f(0.2, 3.2, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//3
-
-
-	glPushMatrix();
-	glTranslatef(01.0, -0.0, 0.0);
-	glColor3f(01.0, 0.80, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.2, 01.0, 0.0);
-	glVertex3f(2.0, 1.0, 0.0);
-	glVertex3f(2.0, 02.6, 0.0);
-	glVertex3f(0.2, 02.6, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(01.0, -0.0, 0.0);
-	glColor3f(0.80, 0.60, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.0, 02.6, 0.0);
-	glVertex3f(2.0, 1.0, 0.0);
-	glVertex3f(2.2, 1.0, 0.0);
-	glVertex3f(02.2, 2.4, 0.0);
-	glEnd();
-	glPopMatrix();
-
-//4
-
-
-
-	glPushMatrix();
-	glTranslatef(13.20, -0.0, 0.0);
-	glColor3f(0.6, 0.20, 0.60);
-	glBegin(GL_POLYGON);
-	glVertex3f(-2.8, 01.0, 0.0);
-	glVertex3f(-1.5, 01.0, 0.0);
-	glVertex3f(-1.5, 03.3, 0.0);
-	glVertex3f(-2.8, 03.3, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(13.20, -0.0, 0.0);
-	glColor3f(0.4, 0.09, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.5, 03.30, 0.0);
-	glVertex3f(-1.5, 01.0, 0.0);
-	glVertex3f(-1.32, 01.0, 0.0);
-	glVertex3f(-1.32, 3.2, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//5
-
-	glPushMatrix();
-	glTranslatef(13.05, -0.0, 0.0);
-	glColor3f(0.90, 0.80, 0.80);
-	glBegin(GL_POLYGON);
-	glVertex3f(-1.1, 01.0, 0.0);
-	glVertex3f(0.0, 1.0, 0.0);
-	glVertex3f(0.0, 04.8, 0.0);
-	glVertex3f(-1.1, 04.8, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(13.05, -0.0, 0.0);
-	glColor3f(0.70, 0.50, 0.50);
-	glBegin(GL_POLYGON);
-	glVertex3f(0.0, 04.8, 0.0);
-	glVertex3f(0.0, 1.0, 0.0);
-	glVertex3f(0.2, 1.0, 0.0);
-	glVertex3f(0.2, 4.6, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	/// Make Cloud ///
-
-	/// 1 ///
-
-	if (s2>=0){
-	s2=s2+.0;
-	}
-	if(s2>15.50){
-	s2=0;
-	}
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(01.480+s2, 3.950, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.21;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(02.350+s2, 3.950, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.21;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(01.8+s2, 3.950, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.21;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(02.1+s2, 3.950, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.21;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(01.77+s2, 3.80, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.261;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(02.1+s2, 3.80, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.261;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(02.1+s2, 4.1, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.261;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(1.7+s2, 4.1, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.261;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-	glEnd();
-	glPopMatrix();
-
-
-	/// 2 ///
-
-
-	if (s3>=0){
-	s3=s3+.001;
-	}
-	if(s3>15.50){
-	s3=0;
-	}
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(-0.60+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(0.40+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(-0.320+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(0.08+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(0.08+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(-0.320+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	/// 3 ///
-
-
-	if (s3>=0){
-	s3=s3+.001;
-	}
-	if(s3>35.50){
-	s3=0;
-	}
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(04.40+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(05.40+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(04.68+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(05.08+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(05.08+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(04.68+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	//cloud 4
-
-
-
-	if (s3>=0){
-	s3=s3+.001;
-	}
-	if(s3>35.50){
-	s3=0;
-	}
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(06.40+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(07.40+s3, 4.50, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(06.68+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(07.08+s3, 4.40, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(07.08+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(06.68+s3, 4.650, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for(int i=0;i<200;i++)
-	{
-	float pi=3.1416;
-	float A=(i*2*pi)/50;
-	float r=0.251;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x,y );
-	}
-
-	glEnd();
-	glPopMatrix();
-
-
-
-	//........................................................sun remake to circle stats here
-
-
-/*
-	glPushMatrix();
-	//glTranslatef(6,0,0);
-	glTranslatef(6.9, 4.50, 0.0);
-	glColor3f(1.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-
-	for (int i = 0; i<400; i++)
-	{
-	float pi = 3.1416;
-	float A = (i * 2 * pi) / 100;
-	float r = 0.5;
-	float x = r * cos(A);
-	float y = r * sin(A);
-	glVertex2f(x, y);
-	}
-
-	*/
-
-	//.........................................oval 1st standard
-
-
-
-	glPushMatrix();
-	//glTranslatef(6,0,0);
-	glTranslatef(6.9, 4.5, 0.0);
-	glColor3f(1.0, 0.9, 0.0);
-	glBegin(GL_POLYGON);
-
-	for (int i = 0; i<100; i++)
-	{
-		glPushAttrib(GL_CURRENT_BIT);
-		glColor3f(.9, .9, 0.9);
-		glLineWidth(2.0);
-
-		// Draw center
-		glBegin(GL_POINTS);
-		glVertex2d(0, 0);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0.0f, 960, 600, 0.0f, 0.0f, 1.0f);
-
-		// This should generate a circle
-		for (GLfloat i = 0; i < 360; i++)
-		{
-			float x = cos(i*M_PI / 180.f) * 1.0; // keep the axes radius same
-			float y = sin(i*M_PI / 180.f) * 0.1;
-			glVertex2f(x, y);
-		}
-
-
-		glPopAttrib();
-	}
-
-	//...............................................
-	/*glPushMatrix();
-	//glTranslatef(6,0,0);
-	glTranslatef(7.9, 4.5, 0.0);
-	glColor3f(1.0, 1.0, 0.0);
-	glBegin(GL_POLYGON);
-
-	for (int i = 0; i<100; i++)
-	{
-		glPushAttrib(GL_CURRENT_BIT);
-		glColor3f(.9, 0.9, 0.9);
-		glLineWidth(2.0);
-
-		// Draw center
-		glBegin(GL_POINTS);
-		glVertex2d(0, 0);
-		glEnd();
-
-		glBegin(GL_POLYGON);
-		float M_PI = 3.1416;
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0.0f, 960, 600, 0.0f, 0.0f, 1.0f);
-
-		// This should generate a circle
-		for (GLfloat i = 0; i < 360; i++)
-		{
-			float x = cos(i*M_PI / 180.f) * 1.0; // keep the axes radius same
-			float y = sin(i*M_PI / 180.f) * 0.1;
-			glVertex2f(x, y);
-		}
-
-		glEnd();
-		glPopAttrib();
-	}
-	glEnd();
-
-
-
-	*/
-
-	//............................................................................................................................
-
-
-	glPopMatrix();
-	glPushMatrix();
-	glTranslatef(03.480 + s1, 3.750, 0.0);
-	//Rotatef(_angle, 0.0, -01.0, 0.0);
-	glColor3f(01.0, 0.1, 01.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i<200; i++)
-	{
-		float pi = 3.1416;
-		float A = (i * 2 * pi) / 50;
-		float r = 0.00;
-		float x = r * cos(A);
-		float y = r * sin(A);
-		glVertex2f(x, y);
-	}
-	glEnd();
-	glPopMatrix();
-
-
-
-
-
-	// MAke Car
-
-	if (d1 >= 0) {
-		d1 = d1 + .025;
-	}
-	if (d1>19.50) {
-		d1 = 0;
-	}
-
-
-	//Make Wheel
-
-	glPushMatrix();
-	glTranslatef(17.98 - d1, -01.25, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 25);
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(17.3 - d1, -01.25, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glutSolidSphere(.10, 40, 5);
-	glPopMatrix();
-
-	//Make glass of 4th Car
-
-	glPushMatrix();
-	glTranslatef(15.40, -1.40, 0.0);
-	glColor3f(0.40, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(1.77 - d1, 0.46, 0.0);
-	glVertex3f(1.87 - d1, 0.63, 0.0);
-	glVertex3f(2.04 - d1, 0.63, 0.0);
-	glVertex3f(2.04 - d1, 0.46, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Make Body
-
-	glPushMatrix();
-	glTranslatef(15.40, -1.40, 0.0);
-	glColor3f(01.70, 01.70, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.05 - d1, 0.15, 0.0);
-	glVertex3f(1.65 - d1, 0.15, 0.0);
-	glVertex3f(1.6 - d1, 0.20, 0.0);
-	glVertex3f(1.60 - d1, 0.28, 0.0);
-	glVertex3f(1.62 - d1, 0.28, 0.0);
-	glVertex3f(1.64 - d1, 0.40, 0.0);
-	glVertex3f(1.76 - d1, 0.48, 0.0);
-	glVertex3f(1.86 - d1, 0.64, 0.0);
-	glVertex3f(2.05 - d1, 0.64, 0.0);
-
-
-	glPushMatrix();
-	glTranslatef(15.40, -1.40, 0.0);
-	glColor3f(0.690, 0.690, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.05 - d1, 0.74, 0.0);
-	glVertex3f(2.75 - d1, 0.74, 0.0);
-	glVertex3f(2.75 - d1, 0.14, 0.0);
-	glVertex3f(2.05 - d1, 0.14, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(15.40, -1.40, 0.0);
-	glColor3f(0.140, 0.140, 0.140);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.77 - d1, 0.19, 0.0);
-	glVertex3f(2.75 - d1, 0.19, 0.0);
-	glVertex3f(2.75 - d1, 0.18, 0.0);
-	glVertex3f(2.77 - d1, 0.18, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	//Make another car
-
-	if (e1 >= 0) {
-		e1 = e1 + .0295;
-	}
-	if (e1>17.50) {
-		e1 = 0;
-	}
-
-
-	//Make Wheel
-	glPushMatrix();
-	glTranslatef(14.9 - e1, -1.18, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glutSolidSphere(.120, 40, 25);
-	glPopMatrix();
-
-
-
-	glPushMatrix();
-	glTranslatef(14.2 - e1, -1.18, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glutSolidSphere(.120, 40, 5);
-	glPopMatrix();
-
-
-
-	// Car1 Body
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(3.2 - e1, 0.15, 0.0);
-	glVertex3f(2.9 - e1, 0.15, 0.0);
-	glVertex3f(2.9 - e1, 0.45, 0.0);
-	glVertex3f(3.25 - e1, 0.32, 0.0);
-	glVertex3f(3.25 - e1, 0.20, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glBegin(GL_POLYGON);
-	glColor3f(0.80, 0.0, 0.80);
-	glVertex3f(2.16 - e1, 0.48, 0.0);
-	glVertex3f(2.26 - e1, 0.40, 0.0);
-	glVertex3f(1.74 - e1, 0.26, 0.0);
-	glVertex3f(1.74 - e1, 0.33, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.26 - e1, 0.15, 0.0);
-	glVertex3f(1.75 - e1, 0.15, 0.0);
-	glVertex3f(1.7 - e1, 0.20, 0.0);
-	glVertex3f(1.70 - e1, 0.26, 0.0);
-	glVertex3f(1.74 - e1, 0.26, 0.0);
-	glVertex3f(1.74 - e1, 0.33, 0.0);
-	glVertex3f(2.16 - e1, 0.48, 0.0);
-	glVertex3f(2.26 - e1, 0.40, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Glass
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.26 - e1, 0.41, 0.0);
-	glVertex3f(2.16 - e1, 0.485, 0.0);
-	glVertex3f(2.295 - e1, 0.69, 0.0);
-	glVertex3f(2.35 - e1, 0.67, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.27 - e1, 0.41, 0.0);
-	glVertex3f(2.36 - e1, 0.66, 0.0);
-	glVertex3f(2.55 - e1, 0.66, 0.0);
-	glVertex3f(2.56 - e1, 0.41, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.57 - e1, 0.41, 0.0);
-	glVertex3f(2.58 - e1, 0.66, 0.0);
-	glVertex3f(2.75 - e1, 0.66, 0.0);
-	glVertex3f(2.88 - e1, 0.41, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(0.80, 0.0, 0.80);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.75 - e1, 0.66, 0.0);
-	glVertex3f(2.36 - e1, 0.66, 0.0);
-	glVertex3f(2.285 - e1, 0.70, 0.0);;
-	glVertex3f(2.75 - e1, 0.70, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	//make door
-
-	glPushMatrix();
-	glTranslatef(12.0, -1.30, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.54 - e1, 0.41, 0.0);
-	glVertex3f(2.56 - e1, 0.41, 0.0);
-	glVertex3f(2.40 - e1, 0.15, 0.0);
-	glVertex3f(2.42 - e1, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -01.30, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.85 - e1, 0.41, 0.0);
-	glVertex3f(2.87 - e1, 0.41, 0.0);
-	glVertex3f(2.70 - e1, 0.15, 0.0);
-	glVertex3f(2.72 - e1, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(12.0, -01.30, 0.0);
-	glColor3f(01.0, 0.0, 01.0);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.9 - e1, 0.15, 0.0);
-	glVertex3f(2.26 - e1, 0.15, 0.0);
-	glVertex3f(2.26 - e1, 0.40, 0.0);
-	glVertex3f(2.16 - e1, 0.48, 0.0);
-	glVertex3f(2.3 - e1, 0.70, 0.0);
-	glVertex3f(2.75 - e1, 0.70, 0.0);
-	glVertex3f(2.9 - e1, 0.45, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	//Make 2nd Car
-
-
-	//glColor3f(0.0, 01.0, 01.0);
-	if (b1 >= 0) {
-		b1 = b1 + .025;
-	}
-	if (b1>20.50) {
-		b1 = 0;
-	}
-
-	//Make Wheel
-	glPushMatrix();
-	glTranslatef(20.20 - b1, -01.09, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(01.0, 01.0, 01.0);
-	glutSolidSphere(.10, 40, 25);
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(20.75 - b1, -1.09, 0.0);
-	glRotatef(_angle, 0.0, 0.0, -1.0);
-	glColor3f(01.0, 01.0, 01.0);
-	glutSolidSphere(.10, 40, 5);
-	glPopMatrix();
-
-
-	//Make body
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glBegin(GL_POLYGON);
-	glColor3f(0.10, 0.10, 0.10);
-	glVertex3f(2.16 - b1, 0.48, 0.0);
-	glVertex3f(2.26 - b1, 0.40, 0.0);
-	glVertex3f(1.83 - b1, 0.32, 0.0);
-	glVertex3f(1.84 - b1, 0.40, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.26 - b1, 0.15, 0.0);
-	glVertex3f(1.85 - b1, 0.15, 0.0);
-	glVertex3f(1.8 - b1, 0.20, 0.0);
-	glVertex3f(1.80 - b1, 0.32, 0.0);
-	glVertex3f(1.82 - b1, 0.32, 0.0);
-	glVertex3f(1.84 - b1, 0.40, 0.0);
-	glVertex3f(2.16 - b1, 0.48, 0.0);
-	glVertex3f(2.26 - b1, 0.415, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	// glass of 2nd car
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.26 - b1, 0.43, 0.0);
-	glVertex3f(2.165 - b1, 0.485, 0.0);
-	glVertex3f(2.265 - b1, 0.67, 0.0);
-	glVertex3f(2.32 - b1, 0.64, 0.0);
-	glEnd();
-	glPopMatrix();
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.27 - b1, 0.43, 0.0);
-	glVertex3f(2.33 - b1, 0.64, 0.0);
-	glVertex3f(2.50 - b1, 0.64, 0.0);
-	glVertex3f(2.50 - b1, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.51 - b1, 0.43, 0.0);
-	glVertex3f(2.51 - b1, 0.64, 0.0);
-	glVertex3f(2.70 - b1, 0.64, 0.0);
-	glVertex3f(2.70 - b1, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.4, 0.40, 0.40);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.71 - b1, 0.43, 0.0);
-	glVertex3f(2.71 - b1, 0.64, 0.0);
-	glVertex3f(2.83 - b1, 0.64, 0.0);
-	glVertex3f(2.91 - b1, 0.45, 0.0);
-	glVertex3f(2.91 - b1, 0.43, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	glPushMatrix();
-	glTranslatef(18.0, -1.25, 0.0);
-	glColor3f(0.10, 0.10, 0.10);
-	glBegin(GL_POLYGON);
-	glVertex3f(2.26 - b1, 0.15, 0.0);
-	glVertex3f(2.26 - b1, 0.40, 0.0);
-	glVertex3f(2.16 - b1, 0.48, 0.0);
-	glVertex3f(2.26 - b1, 0.68, 0.0);
-	glVertex3f(2.84 - b1, 0.68, 0.0);
-	glVertex3f(2.94 - b1, 0.45, 0.0);
-	glVertex3f(2.94 - b1, 0.20, 0.0);
-	glVertex3f(2.96 - b1, 0.20, 0.0);
-	glVertex3f(2.96 - b1, 0.18, 0.0);
-	glVertex3f(2.88 - b1, 0.15, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-
-	//Make 2nd Road
-
-	glPushMatrix();
-	glTranslatef(-0.7, -01.40, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-
-	glBegin(GL_POLYGON);
-	glVertex3f(-10.8, 0.0, 0.0);
-	glVertex3f(16.5, 0.0, 0.0);
-	glVertex3f(16.5, 0.80, 0.0);
-	glVertex3f(-10.8, 0.80, 0.0);
-	glEnd();
-	glPopMatrix();
-
-
-	//Make Footpath 2
-
-	//Make ground
-
-
-	//.....................................................campus background selection
-
-
-	//top circle golla top tobbar
-	
-
-	//.......................................................................................................................................................
-
-	//footer-Ground
-
-	
-
-	//make moon
-
-	//........................................................... footer tree starts from here
-
-	//make tree 4
-
-
-
-	//make tree 5
-
-
-	//glScalef
-	// make tree 6
-	
-	// make tree 7
-	
-
-	// make tree 8
-	
-
-	// make tree 9
-	
-
-	// make tree 10
-	
-
-	//..........................................................footer tree ends here
-
-
-	//..............................................Window codes starts from here
-
-	//red windows
-
-	//
-
-	//make windows for green building
-
-
-	glutSwapBuffers();
-}
 
 void update(int value) {
-	_angle += 2.0f;
-	if (_angle > 360) {
-		_angle -= 360;
-	}
-	_ang_tri += 2.0f;
-	if (_ang_tri > 360) {
-		_ang_tri -= 360;
-	}
 
-	glutPostRedisplay(); //Tell GLUT that the display has changed
+    if(position <-1.0)
+        position = 1.4f;
 
-						 //Tell GLUT to call update again in 25 milliseconds
-	glutTimerFunc(25, update, 0);
+    position -= speed; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update, 0);
+}
+void update1(int value) {
+
+    if(position1 >1.0)
+        position1 = -1.5f;
+
+    position1 += speed1; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update1, 0);
+}
+void update2(int value) {
+
+    if(position2 <-1.5)
+        position2 = 1.0f;
+
+    position2 -= speed2; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, update2, 0);
+}
+
+void updater(int value) {
+
+    if(positionr <-1.0)
+        positionr = 1.0f;
+
+    positionr -= speedr; //position=position-speed;1-.1=.9
+
+	glutPostRedisplay();
+
+
+	glutTimerFunc(100, updater, 0);
+}
+
+void handleKeypress(unsigned char key, int x, int y) {
+	switch (key) {
+case 'p':
+    speed1 = 0.0f;
+    break;
+case 'r':
+    speed1 = 0.02f;
+    break;
+case 'd':
+    glutDisplayFunc(Day);
+    break;
+case 'n':
+    glutDisplayFunc(Night);
+    break;
+glutPostRedisplay();
+	}
+}
+
+void screen()
+{
+    gluOrtho2D(-2,2,-2,2);
+}
+
+void Idle()
+{
+    glutPostRedisplay();//// marks the current window as needing to be redisplayed
+}
+
+void night_demo(int a)
+{
+    glutDisplayFunc(Night);
+}
+void day_rain_demo(int a)
+{
+    glutDisplayFunc(Day_rain);
+}
+void day_demo(int a)
+{
+    glutDisplayFunc(Day);
+}
+
+void Day() {
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
+	glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
+
+	glBegin(GL_QUADS);
+    glColor3ub(176, 233, 254);
+    glVertex2f(1.0f, 1.0f);
+	glVertex2f(-1.0f, 1.0);
+    glVertex2f(-1.0f, 0.0f);
+    glVertex2f(1.0f, 0.0f);    // sky block
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(33, 33, 33);
+    glVertex2f(1.0f, -0.02f);
+    glVertex2f(-1.0f, -0.02f);    // Port block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(1.0f, -0.06);
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(232, 232, 198);
+    glVertex2f(1.0f, 0.0f);
+    glVertex2f(-1.0f, 0.0f);    // Port block up space
+	glVertex2f(-1.0f, -0.02f);
+	glVertex2f(1.0f, -0.02f);
+    glEnd();
+
+	glBegin(GL_LINES);              // x,y axis
+	glLineWidth(1.0);
+	glColor3ub(255, 255, 255);
+	glVertex2f(-1.0f, 0.0f);    // port block up line
+	glVertex2f(1.0f, 0.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(18, 190, 252);
+    glVertex2f(1.0f, -0.06);     // Water block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(-1.0f, -1.0f);
+    glVertex2f(1.0f, -1.0f);
+    glEnd();
+
+    int i;
+    GLfloat x=0.85f; GLfloat y=0.85f;  GLfloat radius =0.1f;
+	int triangleAmount = 20;
+	GLfloat twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);                                              // The bright sun
+	glColor3ub(251, 252, 170);
+		glVertex2f(x, y);
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+    x=0.1f; y=0.8f;   radius =0.08f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+		glVertex2f(x, y);
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),                   // cloud
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+
+    x=0.23f; y=0.85f;   radius =0.1f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+		glVertex2f(x, y);
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),                 //cloud 2nd circle
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+    x=0.36f; y=0.85f;   radius =0.08f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+		glVertex2f(x, y);
+		for(int i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),            //cloud circle 3rd & end cloud
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 70, 120);
+    glVertex2f(0.76f, 0.05f);
+    glVertex2f(0.45f, 0.05f);    // Port Transportation vehicle(truck) back body
+	glVertex2f(0.45f, 0.03f);
+	glVertex2f(0.76f, 0.03f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(120, 70, 120);
+    glVertex2f(0.82f, 0.11f);
+    glVertex2f(0.77f, 0.11f);    // Port Transportation vehicle(truck) front body
+	glVertex2f(0.76f, 0.03f);
+	glVertex2f(0.85f, 0.03f);
+	glVertex2f(0.85f, 0.05f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(0.81f, 0.1f);
+    glVertex2f(0.784f, 0.1f);    // Port Transportation vehicle(truck) front body window
+	glVertex2f(0.78f, 0.07f);
+	glVertex2f(0.82f, 0.07f);
+    glEnd();
+
+
+
+	x=0.8f; y=0.02f; radius =.025f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.8f; y=0.02f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.73f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 2
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.73f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 2 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.54f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 3
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.54f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 3 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.49f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 4
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	x=0.49f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 4 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+    glTranslated(.3,0,0);
+    glScalef(1.3,1.3,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 54, 10);
+    glVertex2f(-0.76f, 0.08f);
+    glVertex2f(-0.96f, 0.08f);
+    glVertex2f(-0.96f, 0.0f);    // Port Headquarter building block 1
+	glVertex2f(-0.76f, 0.0f);
+
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(146, 68, 29);
+    glVertex2f(-0.76f, 0.16f);    // Port Headquarter building block 2
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.96f, 0.08f);
+	glVertex2f(-0.76f, 0.08f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 44, 40);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round front side
+	glVertex2f(-0.85f, 0.38f);
+	glVertex2f(-0.85f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(203, 202, 201);
+    glVertex2f(-0.88f, 0.7f); // Port Headquarter building block top round triangle
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.8f, 0.38f);
+    glEnd();
+
+    glLoadIdentity();
+
+    ////////////////////
+    ////////////////////
+    //CLOCK ON TOP
+
+    glScalef(1.2,1.2,0);
+    glTranslated(-0.7f, 0.55f,0.0f);
+    //glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
+	//glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
+
+    //glTranslated(-0.135, 0.68, 0);
+
+
+	 x=0.0f; y=0.0f;  radius =.099f;
+	triangleAmount = 60; //# of triangles used to draw circle
+	 twicePi = 2.0f * PI;
+    glColor3ub(56, 53, 56);
+
+	glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // main circle
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+		glEnd();
+
+            int sec=60;
+            x=0.0f;
+            y=0.0f;
+            radius=.098;
+            glColor3ub(115, 121, 160);
+
+            glBegin(GL_TRIANGLES);
+		for(i = 0; i <= sec;i++) {
+            glVertex2f(0.0f,0.0f);
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / sec)),       // sec lining
+			    y + (radius * sin(i * twicePi / sec))
+			);
+			glVertex2f(
+                .001f + x + (radius * cos(i *  twicePi / sec)),
+			    .0015f + y + (radius * sin(i * twicePi / sec))
+			);
+		}
+        glEnd();
+
+        glBegin(GL_TRIANGLE_STRIP);
+        radius=.1;
+        sec=39;
+        glColor3ub(2, 131, 135);
+		for(i = 0; i <= sec;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / sec)),       // Main circle round
+			    y + (radius * sin(i * twicePi / sec))
+			);
+		}
+        glEnd();
+
+
+		radius =.08f;
+		glColor3ub(73, 61, 83);
+		triangleAmount = 12;
+		glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // minute circle/polygon
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+
+		radius =.06f;
+		glColor3ub(25, 121, 86);
+		triangleAmount = 4;
+		glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // hour circle/square
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+        glEnd();
+
+        //////////////
+    glPushMatrix();
+    glRotatef(h,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(157, 160, 149);
+    glVertex2f(0.06f, 0.0f);            //hour
+    glVertex2f( 0.03f, -0.0055f);
+    glVertex2f( 0.0f, -0.005f);
+    glVertex2f( 0.0f, 0.005f);
+    glVertex2f( 0.03f, 0.0055f);
+    glEnd();
+    h-=.000000463;
+    //h-=.002666f;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(m,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(167, 170, 159);
+    glVertex2f(0.0f, 0.08f);            //min
+    glVertex2f(-0.0055f, 0.04f);
+    glVertex2f(-0.005f, 0.0f);
+    glVertex2f(0.005f, 0.0f);
+    glVertex2f(0.0055f, 0.04f);
+    glEnd();
+    m-=.000027777;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(s,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(177, 180, 169);
+    glVertex2f(0.0f, 0.1f);             //sec
+    glVertex2f( -0.005f, 0.0f);
+    glVertex2f( 0.0f, 0.005f);
+    glEnd();
+    s-=.00166666f;
+    glPopMatrix();
+
+        //////////////
+
+
+		radius =.01f;
+		glColor3ub(25, 121, 86);
+		triangleAmount = 4;
+		glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+
+		radius =.011f;
+		glColor3ub(56, 53, 56);
+		triangleAmount = 4;
+		glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square under
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+
+	glEnd();
+
+    glLoadIdentity();
+
+
+
+    /////////////////////
+    /////////////////////
+
+
+    glTranslated(.1, 0, 0);
+	glScalef(1.1,1.1,0);
+    glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+		glVertex2f(x, y);           // Port Main crane Hand end round
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 52);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+
+	glLoadIdentity();
+
+	// Port Main crane copied to new place
+	//port new main crane
+	glTranslatef(-.6,0,0);
+	glScalef(.8,.8,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+		glVertex2f(x, y);           // Port Main crane Hand end round
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 25);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+
+	glLoadIdentity();
+	// new main crane end
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.26f, 0.04f);
+    glVertex2f(0.16f, 0.04f);    // Port Main crane on loading container 1
+	glVertex2f(0.16f, 0.0f);
+	glVertex2f(0.26f, 0.0);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.4f, 0.04f);
+    glVertex2f(0.28f, 0.04f);    // Port Main crane on loading container 2
+	glVertex2f(0.28f, 0.0f);
+	glVertex2f(0.4f, 0.0);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(0.32f, 0.08f);
+    glVertex2f(0.22f, 0.08f);    // Port Main crane on loading container 3
+	glVertex2f(0.22f, 0.04f);
+	glVertex2f(0.32f, 0.04f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 25);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+
+	//ship 1 copied to new coordinate
+	//ship 1 with new center
+    glPushMatrix();
+    glTranslatef(position,-.3,0);
+
+	//glTranslatef(0.65,0,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+		glVertex2f(x, y);
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+    glPopMatrix();
+    //glLoadIdentity();
+
+
+
+	//ship 2
+	glPushMatrix();
+    glTranslatef(position1,-.1,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+
+	//ship 2 copied different position
+	//new coordinate
+	//ship 2 new center with 1.5 times size
+	glPushMatrix();
+    glTranslatef(position2,-.3,0);
+	//glTranslatef(-0.9,0,0);
+	glScalef(1.25,1.25,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+	//glLoadIdentity();
+	//ship 2 new end
+
+    glBegin(GL_QUADS);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.1f, 0.55f);    // port turbine body
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.17f, 0.0f);
+	glVertex2f(-0.1f, 0.0f);
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.135f, 0.68f);    //port turbine top
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.1f, 0.55f);
+    glEnd();
+
+    glPushMatrix();
+    glTranslated(-0.135, 0.68, 0);
+
+    glRotatef(j,0.0,0.0,1.0);
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.15f, 0.06f);
+    glVertex2f( 0.07f, 0.14f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( -0.13f, 0.09f);
+    glVertex2f( -0.15f, -0.01f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.02f, -0.15f);
+    glVertex2f( 0.13f, -0.12f);
+    glEnd();
+
+    glPopMatrix();
+    j-=0.2f;
+    glLoadIdentity();
+
+    glutTimerFunc(3000,night_demo,9);
+    glFlush();
+
+
 }
 
 
 
+void Night() {
+
+    //gluOrtho2D(-1.4,1,-1,1);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
+	glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
+
+	glBegin(GL_QUADS);
+    glColor3ub(10, 16, 43);
+    glVertex2f(1.0f, 1.0f);
+	glVertex2f(-1.0f, 1.0);
+    glVertex2f(-1.0f, 0.0f);
+    glVertex2f(1.0f, 0.0f);    // sky block
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(33, 33, 33);
+    glVertex2f(1.0f, -0.02f);
+    glVertex2f(-1.0f, -0.02f);    // Port block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(1.0f, -0.06);
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(232, 232, 198);
+    glVertex2f(1.0f, 0.0f);
+    glVertex2f(-1.0f, 0.0f);    // Port block up space
+	glVertex2f(-1.0f, -0.02f);
+	glVertex2f(1.0f, -0.02f);
+    glEnd();
+
+	glBegin(GL_LINES);              // x,y axis
+	glLineWidth(1.0);
+	glColor3ub(255, 255, 255);
+	glVertex2f(-1.0f, 0.0f);    // port block up line
+	glVertex2f(1.0f, 0.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(2, 41, 107);
+    glVertex2f(1.0f, -0.06);     // Water block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(-1.0f, -1.0f);
+    glVertex2f(1.0f, -1.0f);
+    glEnd();
+
+    int i;
+	GLfloat x=.8f; GLfloat y=.8f; GLfloat radius =.09f;
+	int triangleAmount = 20; //# of triangles used to draw circle
+	GLfloat twicePi = 2.0f * PI;
+    glColor3ub(254,252,215);
+	glBegin(GL_TRIANGLE_FAN);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // The bright full moon
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 70, 120);
+    glVertex2f(0.76f, 0.05f);
+    glVertex2f(0.45f, 0.05f);    // Port Transportation vehicle(truck) back body
+	glVertex2f(0.45f, 0.03f);
+	glVertex2f(0.76f, 0.03f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(120, 70, 120);
+    glVertex2f(0.82f, 0.11f);
+    glVertex2f(0.77f, 0.11f);    // Port Transportation vehicle(truck) front body
+	glVertex2f(0.76f, 0.03f);
+	glVertex2f(0.85f, 0.03f);
+	glVertex2f(0.85f, 0.05f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(0.81f, 0.1f);
+    glVertex2f(0.784f, 0.1f);    // Port Transportation vehicle(truck) front body window
+	glVertex2f(0.78f, 0.07f);
+	glVertex2f(0.82f, 0.07f);
+    glEnd();
+
+	x=0.8f; y=0.02f; radius =.025f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.8f; y=0.02f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.73f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 2
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.73f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 2 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.54f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 3
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.54f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 3 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.49f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+		glVertex2f(x, y);           // Port Main vehicle tyre 4
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.49f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+		glVertex2f(x, y);           // Port Main vehicle tyre 4 ring
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+    glTranslated(.3,0,0);
+    glScalef(1.3,1.3,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 54, 10);
+    glVertex2f(-0.76f, 0.08f);
+    glVertex2f(-0.96f, 0.08f);
+    glVertex2f(-0.96f, 0.0f);    // Port Headquarter building block 1
+	glVertex2f(-0.76f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(146, 68, 29);
+    glVertex2f(-0.76f, 0.16f);    // Port Headquarter building block 2
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.96f, 0.08f);
+	glVertex2f(-0.76f, 0.08f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 44, 40);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round front side
+	glVertex2f(-0.85f, 0.38f);
+	glVertex2f(-0.85f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(203, 202, 201);
+    glVertex2f(-0.88f, 0.7f); // Port Headquarter building block top round triangle
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.8f, 0.38f);
+    glEnd();
+
+    glLoadIdentity();
+    ////////////////////
+    ////////////////////
+    //CLOCK ON TOP
+
+    glScalef(1.2,1.2,0);
+    glTranslated(-0.7f, 0.55f,0.0f);
+
+	 x=0.0f; y=0.0f;  radius =.099f;
+	triangleAmount = 60; //# of triangles used to draw circle
+	 twicePi = 2.0f * PI;
+    glColor3ub(56, 53, 56);
+
+	glBegin(GL_POLYGON);
+		glVertex2f(x, y); // center of circle
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),       // main circle
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+		glEnd();
+
+    int sec=60;
+    x=0.0f;
+    y=0.0f;
+    radius=.098;
+    glColor3ub(115, 121, 160);
+
+    glBegin(GL_TRIANGLES);
+    for(i = 0; i <= sec;i++) {
+        glVertex2f(0.0f,0.0f);
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / sec)),       // sec lining
+            y + (radius * sin(i * twicePi / sec))
+            );
+        glVertex2f(
+            .001f + x + (radius * cos(i *  twicePi / sec)),
+            .0015f + y + (radius * sin(i * twicePi / sec))
+            );
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_STRIP);
+    radius=.1;
+    sec=39;
+    glColor3ub(2, 131, 135);
+    for(i = 0; i <= sec;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / sec)),       // Main circle round
+            y + (radius * sin(i * twicePi / sec))
+			);
+    }
+    glEnd();
 
 
+    radius =.08f;
+    glColor3ub(73, 61, 83);
+    triangleAmount = 12;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // minute circle/polygon
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+
+    radius =.06f;
+    glColor3ub(25, 121, 86);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // hour circle/square
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+    glEnd();
+
+        //////////////
+    glPushMatrix();
+    glRotatef(h,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(157, 160, 149);
+    glVertex2f(0.06f, 0.0f);            //hour
+    glVertex2f( 0.03f, -0.0055f);
+    glVertex2f( 0.0f, -0.005f);
+    glVertex2f( 0.0f, 0.005f);
+    glVertex2f( 0.03f, 0.0055f);
+    glEnd();
+    h-=.000000463;
+    //h-=.002666f;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(m,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(167, 170, 159);
+    glVertex2f(0.0f, 0.08f);            //min
+    glVertex2f(-0.0055f, 0.04f);
+    glVertex2f(-0.005f, 0.0f);
+    glVertex2f(0.005f, 0.0f);
+    glVertex2f(0.0055f, 0.04f);
+    glEnd();
+    m-=.000027777;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(s,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(177, 180, 169);
+    glVertex2f(0.0f, 0.1f);             //sec
+    glVertex2f( -0.005f, 0.0f);
+    glVertex2f( 0.0f, 0.005f);
+    glEnd();
+    s-=.00166666f;
+    glPopMatrix();
+
+        //////////////
+
+
+    radius =.01f;
+    glColor3ub(25, 121, 86);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+
+    radius =.011f;
+    glColor3ub(56, 53, 56);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square under
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+    glLoadIdentity();
+
+    /////////////////////
+    /////////////////////
+
+    glTranslated(.1, 0, 0);
+	glScalef(1.1,1.1,0);
+    glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+		glVertex2f(x, y);           // Port Main crane Hand end round
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+                x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+	glLoadIdentity();
+
+	// Port Main crane copied to new place
+	//port new main crane
+	glTranslatef(-.6,0,0);
+	glScalef(.8,.8,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+    glVertex2f(x, y);           // Port Main crane Hand end round
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+	glLoadIdentity();
+	// new main crane end
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.26f, 0.04f);
+    glVertex2f(0.16f, 0.04f);    // Port Main crane on loading container 1
+	glVertex2f(0.16f, 0.0f);
+	glVertex2f(0.26f, 0.0);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.4f, 0.04f);
+    glVertex2f(0.28f, 0.04f);    // Port Main crane on loading container 2
+	glVertex2f(0.28f, 0.0f);
+	glVertex2f(0.4f, 0.0);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(0.32f, 0.08f);
+    glVertex2f(0.22f, 0.08f);    // Port Main crane on loading container 3
+	glVertex2f(0.22f, 0.04f);
+	glVertex2f(0.32f, 0.04f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+    glVertex2f(x, y);
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+	//ship 1 copied to new coordinate
+	//ship 1 with new center
+    glPushMatrix();
+    glTranslatef(position,-.3,0);
+
+	//glTranslatef(0.65,0,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+    glVertex2f(x, y);
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+    glPopMatrix();
+    //glLoadIdentity();
+
+	//ship 2
+	glPushMatrix();
+    glTranslatef(position1,-.1,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+
+	//ship 2 copied different position
+	//new coordinate
+	//ship 2 new center with 1.5 times size
+	glPushMatrix();
+    glTranslatef(position2,-.3,0);
+	//glTranslatef(-0.9,0,0);
+	glScalef(1.25,1.25,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+	//glLoadIdentity();
+	//ship 2 new end
+
+    glBegin(GL_QUADS);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.1f, 0.55f);    // port turbine body
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.17f, 0.0f);
+	glVertex2f(-0.1f, 0.0f);
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.135f, 0.68f);    //port turbine top
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.1f, 0.55f);
+    glEnd();
+
+    glPushMatrix();
+    glTranslated(-0.135, 0.68, 0);
+    glRotatef(j,0.0,0.0,1.0);
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.15f, 0.06f);
+    glVertex2f( 0.07f, 0.14f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( -0.13f, 0.09f);
+    glVertex2f( -0.15f, -0.01f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.02f, -0.15f);
+    glVertex2f( 0.13f, -0.12f);
+    glEnd();
+
+    glPopMatrix();
+    j-=0.2f;
+    glLoadIdentity();
+
+    glutTimerFunc(3000,day_rain_demo,9);
+    glFlush();
+
+}
+
+
+void Day_rain() {
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
+	glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
+
+	glBegin(GL_QUADS);
+    glColor3ub(176, 233, 254);
+    glVertex2f(1.0f, 1.0f);
+	glVertex2f(-1.0f, 1.0);
+    glVertex2f(-1.0f, 0.0f);
+    glVertex2f(1.0f, 0.0f);    // sky block
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(33, 33, 33);
+    glVertex2f(1.0f, -0.02f);
+    glVertex2f(-1.0f, -0.02f);    // Port block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(1.0f, -0.06);
+    glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(232, 232, 198);
+    glVertex2f(1.0f, 0.0f);
+    glVertex2f(-1.0f, 0.0f);    // Port block up space
+	glVertex2f(-1.0f, -0.02f);
+	glVertex2f(1.0f, -0.02f);
+    glEnd();
+
+	glBegin(GL_LINES);              // x,y axis
+	glLineWidth(1.0);
+	glColor3ub(255, 255, 255);
+	glVertex2f(-1.0f, 0.0f);    // port block up line
+	glVertex2f(1.0f, 0.0f);
+	glEnd();
+
+	glBegin(GL_QUADS);
+    glColor3ub(18, 190, 252);
+    glVertex2f(1.0f, -0.06);     // Water block
+	glVertex2f(-1.0f, -0.06f);
+	glVertex2f(-1.0f, -1.0f);
+    glVertex2f(1.0f, -1.0f);
+    glEnd();
+
+    int i;
+    GLfloat x=0.85f; GLfloat y=0.85f;  GLfloat radius =0.1f;
+	int triangleAmount = 20;
+	GLfloat twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);                                              // The bright sun
+	glColor3ub(251, 252, 170);
+    glVertex2f(x, y);
+    for(int i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+    x=0.1f; y=0.8f;   radius =0.08f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+    glVertex2f(x, y);
+    for(int i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),                   // cloud
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+    x=0.23f; y=0.85f;   radius =0.1f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+    glVertex2f(x, y);
+    for(int i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),                 //cloud 2nd circle
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+
+    x=0.36f; y=0.85f;   radius =0.08f;
+	triangleAmount = 20;
+	twicePi = 2.0f * PI;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 255, 255);
+    glVertex2f(x, y);
+    for(int i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),            //cloud circle 3rd & end cloud
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 70, 120);
+    glVertex2f(0.76f, 0.05f);
+    glVertex2f(0.45f, 0.05f);    // Port Transportation vehicle(truck) back body
+	glVertex2f(0.45f, 0.03f);
+	glVertex2f(0.76f, 0.03f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(120, 70, 120);
+    glVertex2f(0.82f, 0.11f);
+    glVertex2f(0.77f, 0.11f);    // Port Transportation vehicle(truck) front body
+	glVertex2f(0.76f, 0.03f);
+	glVertex2f(0.85f, 0.03f);
+	glVertex2f(0.85f, 0.05f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(0.81f, 0.1f);
+    glVertex2f(0.784f, 0.1f);    // Port Transportation vehicle(truck) front body window
+	glVertex2f(0.78f, 0.07f);
+	glVertex2f(0.82f, 0.07f);
+    glEnd();
+
+	x=0.8f; y=0.02f; radius =.025f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+    glVertex2f(x, y);           // Port Main vehicle tyre 1
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	x=0.8f; y=0.02f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+    glVertex2f(x, y);           // Port Main vehicle tyre 1 ring
+    for(i = 0; i <= triangleAmount;i++) {
+    glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	x=0.73f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+    glVertex2f(x, y);           // Port Main vehicle tyre 2
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	x=0.73f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+    glVertex2f(x, y);           // Port Main vehicle tyre 2 ring
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+
+	x=0.54f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+    glVertex2f(x, y);           // Port Main vehicle tyre 3
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+
+	x=0.54f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+    glVertex2f(x, y);           // Port Main vehicle tyre 3 ring
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	x=0.49f; y=0.019f; radius =.024f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(56, 53, 56);
+    glVertex2f(x, y);           // Port Main vehicle tyre 4
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+
+	x=0.49f; y=0.019f; radius =.008f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(199, 200, 204);
+    glVertex2f(x, y);           // Port Main vehicle tyre 4 ring
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+    glTranslated(.3,0,0);
+    glScalef(1.3,1.3,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 54, 10);
+    glVertex2f(-0.76f, 0.08f);
+    glVertex2f(-0.96f, 0.08f);
+    glVertex2f(-0.96f, 0.0f);    // Port Headquarter building block 1
+	glVertex2f(-0.76f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(146, 68, 29);
+    glVertex2f(-0.76f, 0.16f);    // Port Headquarter building block 2
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.96f, 0.08f);
+	glVertex2f(-0.76f, 0.08f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(139, 44, 40);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.96f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(229, 233, 254);
+    glVertex2f(-0.8f, 0.38f);    // Port Headquarter building block 3 round front side
+	glVertex2f(-0.85f, 0.38f);
+	glVertex2f(-0.85f, 0.16f);
+	glVertex2f(-0.8f, 0.16f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(203, 202, 201);
+    glVertex2f(-0.88f, 0.7f); // Port Headquarter building block top round triangle
+	glVertex2f(-0.96f, 0.38f);
+	glVertex2f(-0.8f, 0.38f);
+    glEnd();
+
+    glLoadIdentity();
+
+    ////////////////////
+    ////////////////////
+    //CLOCK ON TOP
+
+    glScalef(1.2,1.2,0);
+    glTranslated(-0.7f, 0.55f,0.0f);
+
+    x=0.0f; y=0.0f;  radius =.099f;
+	triangleAmount = 60; //# of triangles used to draw circle
+    twicePi = 2.0f * PI;
+    glColor3ub(56, 53, 56);
+	glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // main circle
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+    glEnd();
+
+    int sec=60;
+    x=0.0f;
+    y=0.0f;
+    radius=.098;
+    glColor3ub(115, 121, 160);
+    glBegin(GL_TRIANGLES);
+    for(i = 0; i <= sec;i++) {
+        glVertex2f(0.0f,0.0f);
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / sec)),       // sec lining
+            y + (radius * sin(i * twicePi / sec))
+			);
+        glVertex2f(
+            .001f + x + (radius * cos(i *  twicePi / sec)),
+            .0015f + y + (radius * sin(i * twicePi / sec))
+			);
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_STRIP);
+    radius=.1;
+    sec=39;
+    glColor3ub(2, 131, 135);
+    for(i = 0; i <= sec;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / sec)),       // Main circle round
+            y + (radius * sin(i * twicePi / sec))
+			);
+    }
+    glEnd();
+
+    radius =.08f;
+    glColor3ub(73, 61, 83);
+    triangleAmount = 12;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // minute circle/polygon
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+
+    radius =.06f;
+    glColor3ub(25, 121, 86);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // hour circle/square
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+    glEnd();
+
+        //////////////
+    glPushMatrix();
+    glRotatef(h,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(157, 160, 149);
+    glVertex2f(0.06f, 0.0f);            //hour
+    glVertex2f( 0.03f, -0.0055f);
+    glVertex2f( 0.0f, -0.005f);
+    glVertex2f( 0.0f, 0.005f);
+    glVertex2f( 0.03f, 0.0055f);
+    glEnd();
+    h-=.000000463;
+    //h-=.002666f;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(m,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(167, 170, 159);
+    glVertex2f(0.0f, 0.08f);            //min
+    glVertex2f(-0.0055f, 0.04f);
+    glVertex2f(-0.005f, 0.0f);
+    glVertex2f(0.005f, 0.0f);
+    glVertex2f(0.0055f, 0.04f);
+    glEnd();
+    m-=.000027777;
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(s,0.0,0.0,1.0);
+    glBegin(GL_POLYGON);
+    glColor3ub(177, 180, 169);
+    glVertex2f(0.0f, 0.1f);             //sec
+    glVertex2f( -0.005f, 0.0f);
+    glVertex2f( 0.0f, 0.005f);
+    glEnd();
+    s-=.00166666f;
+    glPopMatrix();
+
+        //////////////
+
+
+    radius =.01f;
+    glColor3ub(25, 121, 86);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+
+    radius =.011f;
+    glColor3ub(56, 53, 56);
+    triangleAmount = 4;
+    glBegin(GL_POLYGON);
+    glVertex2f(x, y); // center of circle
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),       // center mini circle/square under
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+    glLoadIdentity();
+
+
+
+    /////////////////////
+    /////////////////////
+
+
+    glTranslated(.1, 0, 0);
+	glScalef(1.1,1.1,0);
+    glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+    glVertex2f(x, y);           // Port Main crane Hand end round
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 52);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+	glLoadIdentity();
+
+	// Port Main crane copied to new place
+	//port new main crane
+	glTranslatef(-.6,0,0);
+	glScalef(.8,.8,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.04f, 0.4f);    // Port Main crane body
+	glVertex2f(0.0f, 0.4f);
+	glVertex2f(0.0f, 0.0f);
+	glVertex2f(0.04f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Head
+	glVertex2f(-0.04f, 0.44f);
+	glVertex2f(-0.04f, 0.4f);
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(0.4f, 0.5f);
+    glVertex2f(0.02f, 0.44f);    // Port Main crane Hand
+	glVertex2f(0.04f, 0.4f);
+    glEnd();
+
+    x=0.4f; y=0.5f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(255, 235, 143);
+    glVertex2f(x, y);           // Port Main crane Hand end round
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+        );
+    }
+	glEnd();
+
+	glBegin(GL_LINES);
+	glColor3ub(203, 203, 203);
+	glVertex2f(0.4f, 0.5f);    // Main crane rope hanger
+	glVertex2f(0.4f, 0.3f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 25);
+    glVertex2f(0.45f, 0.3f);
+    glVertex2f(0.35f, 0.3f);    // Port Main crane Hanging Container
+	glVertex2f(0.35f, 0.26f);
+	glVertex2f(0.45f, 0.26f);
+    glEnd();
+
+	glLoadIdentity();
+	// new main crane end
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.26f, 0.04f);
+    glVertex2f(0.16f, 0.04f);    // Port Main crane on loading container 1
+	glVertex2f(0.16f, 0.0f);
+	glVertex2f(0.26f, 0.0);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(0.4f, 0.04f);
+    glVertex2f(0.28f, 0.04f);    // Port Main crane on loading container 2
+	glVertex2f(0.28f, 0.0f);
+	glVertex2f(0.4f, 0.0);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(0.32f, 0.08f);
+    glVertex2f(0.22f, 0.08f);    // Port Main crane on loading container 3
+	glVertex2f(0.22f, 0.04f);
+	glVertex2f(0.32f, 0.04f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+    glVertex2f(x, y);
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+			);
+    }
+	glEnd();
+
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 25);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+	//ship 1 copied to new coordinate
+	//ship 1 with new center
+    glPushMatrix();
+    glTranslatef(position,-.3,0);
+
+	//glTranslatef(0.65,0,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(67, 94, 114);
+    glVertex2f(-0.2f, 0.0f);    // ship body 1
+	glVertex2f(-.72f, 0.0f);
+	glVertex2f(-0.64f, -0.1f);
+	glVertex2f(-0.24f, -0.1f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(73, 61, 83);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block
+	glVertex2f(-.33f, 0.06f);
+	glVertex2f(-0.33f, -0.0f);
+	glVertex2f(-0.2f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(177, 176, 174);
+    glVertex2f(-0.2f, 0.06f);    // ship 1 body block top
+	glVertex2f(-.2f, 0.12f);
+	glVertex2f(-0.25f, 0.12f);
+	glVertex2f(-0.25f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(251, 179, 12);
+    glVertex2f(-0.29f, 0.12f);    // ship 1 crane body
+	glVertex2f(-.32f, 0.12f);
+	glVertex2f(-0.32f, 0.06f);
+	glVertex2f(-0.29f, 0.06f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 122, 23);
+    glVertex2f(-0.28f, 0.15f);    // ship 1 crane head
+	glVertex2f(-.3f, 0.15f);
+	glVertex2f(-0.31f, 0.14f);
+	glVertex2f(-0.32f, 0.12f);
+	glVertex2f(-0.28f, 0.12f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(250, 171, 6);
+    glVertex2f(-0.3f, 0.15f);    // ship 1 crane hand
+	glVertex2f(-.47f, 0.21f);
+	glVertex2f(-0.31f, 0.14f);
+    glEnd();
+
+	//ship 1 crane hand top circle
+    x=-0.47f; y=0.21f; radius =.01f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(250, 183, 76);
+    glVertex2f(x, y);
+    for(i = 0; i <= triangleAmount;i++) {
+        glVertex2f(
+            x + (radius * cos(i *  twicePi / triangleAmount)),
+            y + (radius * sin(i * twicePi / triangleAmount))
+        );
+    }
+	glEnd();
+
+	//glLineWidth(0.01);
+	glBegin(GL_LINES);// x,y axis
+	glColor3ub(203, 203, 203);
+	glVertex2f(-0.47f, 0.21f);    // crane hanging rope
+	glVertex2f(-0.47f, 0.08f);
+	glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(234, 89, 63);
+    glVertex2f(-0.48f, 0.04f);    // ship 1 container 1
+	glVertex2f(-.58f, 0.04f);
+	glVertex2f(-0.58f, 0.0f);
+	glVertex2f(-0.48f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(150, 225, 252);
+    glVertex2f(-0.34f, 0.04f);    // ship 1 container 2
+	glVertex2f(-.46f, 0.04f);
+	glVertex2f(-0.46f, 0.0f);
+	glVertex2f(-0.34f, 0.0f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(10, 170, 120);
+    glVertex2f(-0.42f, 0.08f);    // ship 1 container 3
+	glVertex2f(-.52f, 0.08f);
+	glVertex2f(-0.52f, 0.04f);
+	glVertex2f(-0.42f, 0.04f);
+    glEnd();
+
+    glPopMatrix();
+    //glLoadIdentity();
+
+
+	//ship 2
+	glPushMatrix();
+    glTranslatef(position1,-.1,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+
+	//ship 2 copied different position
+	//new coordinate
+	//ship 2 new center with 1.5 times size
+	glPushMatrix();
+    glTranslatef(position2,-.3,0);
+	//glTranslatef(-0.9,0,0);
+	glScalef(1.25,1.25,0);
+
+	glBegin(GL_POLYGON);
+    glColor3ub(118, 2, 2);
+    glVertex2f(0.6f, -0.4f);    // ship 2 main body
+	glVertex2f(0.0f, -0.4f);
+	glVertex2f(0.0f, -0.43f);
+	glVertex2f(0.06f, -0.5f);
+	glVertex2f(0.54f, -0.5f);
+	glVertex2f(0.6f, -0.43f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(0, 115, 56);
+    glVertex2f(0.54f, -0.37f);    // ship 2 container 1
+	glVertex2f(0.06f, -0.37f);
+	glVertex2f(0.06f, -0.4f);
+	glVertex2f(0.54f, -0.4f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(224, 171, 59);
+    glVertex2f(0.53f, -0.34f);    // ship 2 container 2
+	glVertex2f(0.07f, -0.34f);
+	glVertex2f(0.07f, -0.37f);
+	glVertex2f(0.53f, -0.37f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.14f, -0.24f);    // ship 2 smoke pipe left
+	glVertex2f(0.11f, -0.24f);
+	glVertex2f(0.11f, -0.34f);
+	glVertex2f(0.14f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.34f, -0.24f);    // ship 2 smoke pipe mid
+	glVertex2f(0.26f, -0.24f);
+	glVertex2f(0.26f, -0.34f);
+	glVertex2f(0.34f, -0.34f);
+    glEnd();
+
+	glBegin(GL_POLYGON);
+    glColor3ub(30, 30, 30);
+    glVertex2f(0.49f, -0.24f);    // ship 2 smoke pipe right
+	glVertex2f(0.46f, -0.24f);
+	glVertex2f(0.46f, -0.34f);
+	glVertex2f(0.49f, -0.34f);
+    glEnd();
+
+    glPopMatrix();
+	//glLoadIdentity();
+	//ship 2 new end
+
+    glBegin(GL_QUADS);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.1f, 0.55f);    // port turbine body
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.17f, 0.0f);
+	glVertex2f(-0.1f, 0.0f);
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3ub(30, 30, 30);
+    glVertex2f(-0.135f, 0.68f);    //port turbine top
+	glVertex2f(-0.17f, 0.55f);
+	glVertex2f(-0.1f, 0.55f);
+    glEnd();
+
+    glPushMatrix();
+    glTranslated(-0.135, 0.68, 0);
+
+    glRotatef(j,0.0,0.0,1.0);
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.15f, 0.06f);
+    glVertex2f( 0.07f, 0.14f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( -0.13f, 0.09f);
+    glVertex2f( -0.15f, -0.01f);
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(0.0f, 0.0f);
+    glVertex2f( 0.02f, -0.15f);
+    glVertex2f( 0.13f, -0.12f);
+    glEnd();
+
+    glPopMatrix();
+    j-=0.2f;
+
+    glPushMatrix();
+    glLineWidth(2);
+    glTranslatef(positionr,positionr,0);
+	glScalef(1,1,0);
+
+    glBegin(GL_LINES);
+	glColor3ub(255,255,255);
+	glVertex2f(-0.96f,1.0f);             // 1st raindrop from left
+	glVertex2f(-1.0f,0.9f);
+
+	glVertex2f(-0.76f,0.9f);             // 1st_2 raindrop from left
+	glVertex2f(-0.8f,0.8f);
+
+	glVertex2f(-0.56f,1.0f);             // 2nd raindrop from left
+	glVertex2f(-0.6f,0.9f);
+
+	glVertex2f(-0.36f,0.9f);             // 2nd_3 raindrop from left
+	glVertex2f(-0.4f,0.8f);
+
+	glVertex2f(-0.16f,1.0f);             // 3rd raindrop from left
+	glVertex2f(-0.2f,0.9f);
+
+	glVertex2f(0.02f,0.9f);             // 3rd_4 raindrop from left
+	glVertex2f(-0.02f,0.8f);
+
+	glVertex2f(0.2f,1.0f);             // 4th raindrop from left
+	glVertex2f(0.16f,0.9f);
+
+	glVertex2f(0.4f,0.9f);             // 4th_5 raindrop from left
+	glVertex2f(0.36f,0.8f);
+
+	glVertex2f(0.6f,1.0f);             // 5th raindrop from left
+	glVertex2f(0.56f,0.9f);
+
+	glVertex2f(0.8f,0.9f);             // 5th_6 raindrop from left
+	glVertex2f(0.76f,0.8f);
+;
+	glVertex2f(1.0f,1.0f);             // 6th raindrop from left
+	glVertex2f(0.96f,0.9f);
+
+	glVertex2f(1.2f,0.9f);             // 6th_7 raindrop from left
+	glVertex2f(1.16f,0.8f);
+
+	glVertex2f(1.4f,1.0f);             // 7th raindrop from left
+	glVertex2f(1.36f,0.9f);
+
+	glVertex2f(1.6f,0.9f);             // 7th_8 raindrop from left
+	glVertex2f(1.56f,0.8f);
+
+	glVertex2f(1.8f,1.0f);             // 8th raindrop from left
+	glVertex2f(1.76f,0.9f);
+
+	glVertex2f(2.0f,0.9f);             // 8th_9 raindrop from left
+	glVertex2f(1.96f,0.8f);
+	glEnd();
+
+	glPopMatrix();
+
+    glLoadIdentity();
+    glutTimerFunc(3000,day_demo,9);
+    glFlush();
+}
+
+
+
+void handleMouse(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON){
+			//speed += 0.01f;
+			glutDisplayFunc(Day_rain);
+			}
+    if (button == GLUT_RIGHT_BUTTON){
+            //speed -= 0.01f;
+            glutDisplayFunc(Day);
+			}
+	glutPostRedisplay();
+}
+
+
+
+void SpecialInput(int key, int x, int y)
+{
+switch(key)
+{case GLUT_KEY_UP:
+speed2=.05;
+break;
+case GLUT_KEY_DOWN:
+speed2=.01;
+break;
+case GLUT_KEY_LEFT:
+speed2 += 0.01f;
+break;
+case GLUT_KEY_RIGHT:
+speed2 -= 0.01f;
+break;}
+glutPostRedisplay();
+}
+
+
+/* Main function: GLUT runs as a console application starting at main()  */
 int main(int argc, char** argv) {
+	glutInit(&argc, argv);                 // Initialize GLUT
+	glutInitWindowSize(1280, 720);   // Set the window's initial width & height
+	glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
+	glutDisplayFunc(Day); // Register display callback handler for window re-paint
 
+	glutTimerFunc(100, update, 0);
+    glutTimerFunc(100, update1, 0);
+    glutTimerFunc(100, update2, 0);
+    glutTimerFunc(100, updater, 0);
 
-	//Initialize GLUT
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(1280, 1000);
+    glutKeyboardFunc(handleKeypress);
+    glutMouseFunc(handleMouse);
+    glutSpecialFunc(SpecialInput);
 
-	//Create the window
-	glutCreateWindow("AIUB campus view");
-	initRendering();
+	glutIdleFunc(Idle);
+	glutMainLoop();           // Enter the event-processing loop
 
-	//Set handler functions
-	glutDisplayFunc(drawScene);
-
-	glutReshapeFunc(handleResize);
-	//glutIdleFunc(idle);
-	glutTimerFunc(25, update, 0);
-
-	glutMainLoop();
 	return 0;
 }

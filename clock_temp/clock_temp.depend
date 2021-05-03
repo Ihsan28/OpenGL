@@ -1,14 +1,8 @@
 # depslib dependency file v1.0
-1611822885 source:c:\users\ihsan\onedrive\desktop\opengl\lkl\main.cpp
+1616351239 source:c:\users\ihsan\onedrive\documents\github\opengl\clock_temp\main.cpp
 	<windows.h>
-	<GLUT/glut.h>
 	<GL/glut.h>
-	<stdlib.h>
-
-1611820117 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
-	<windows.h>
-	<GL/gl.h>
-	<GL/glu.h>
+	<math.h>
 
 1301111162 c:\program files (x86)\codeblocks\mingw\include\windows.h
 	<winresrc.h>
@@ -214,9 +208,17 @@
 1301111156 c:\program files (x86)\codeblocks\mingw\include\oleidl.h
 	<objfwd.h>
 
+1615620425 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
+	<windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
 
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\glu.h
 	<stddef.h>
 	<GL/gl.h>
+
+1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
+	<_mingw.h>
 

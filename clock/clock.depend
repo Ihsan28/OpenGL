@@ -208,7 +208,7 @@
 1301111156 c:\program files (x86)\codeblocks\mingw\include\oleidl.h
 	<objfwd.h>
 
-1611820117 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
+1615620425 c:\program files (x86)\codeblocks\mingw\include\gl\glut.h
 	<windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -221,4 +221,9 @@
 
 1341006774 c:\program files (x86)\codeblocks\mingw\include\math.h
 	<_mingw.h>
+
+1616351239 source:c:\users\ihsan\onedrive\documents\github\opengl\clock\main.cpp
+	<windows.h>
+	<GL/glut.h>
+	<math.h>
 

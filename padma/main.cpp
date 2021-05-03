@@ -17,10 +17,10 @@ GLfloat positionc = 0.0f;
 GLfloat speedc = 0.02f;
 
 GLfloat positiont = 0.0f;
-GLfloat speedt = 0.09f;
+GLfloat speedt = 0.04f;
 
 GLfloat positiontr = 0.0f;
-GLfloat speedtr = 0.09f;
+GLfloat speedtr = 0.04f;
 
 GLfloat position = 0.0f;
 GLfloat speed = 0.05f;
@@ -57,7 +57,7 @@ void update(int value) {
 void updatet(int value) {
 
     if(positiont >1.0)
-        positiont = -1.4f;
+        positiont = -2.4f;
 
     positiont += speedt; //position=position-speed;1-.1=.9
 
@@ -68,10 +68,10 @@ void updatet(int value) {
 }
 void updatetr(int value) {
 
-    if(positiontr >1.0)
-        positiontr = -1.4f;
+    if(positiontr <-1.0)
+        positiontr = 2.4f;
 
-    positiontr += speedtr; //position=position-speed;1-.1=.9
+    positiontr -= speedtr; //position=position-speed;1-.1=.9
 
 	glutPostRedisplay();
 
@@ -675,6 +675,7 @@ void cloud1()
 }
 void cloud2()
 {
+
     glPushMatrix();
     glTranslatef(positionc+1.0,d+.02,0);
     glScalef(1,1,0);
@@ -726,6 +727,79 @@ void cloud2()
 
 	glPopMatrix();
 
+}
+void tire(GLfloat x=0, GLfloat y=0, GLfloat z=0)
+{
+    glPushMatrix();
+    glTranslated(x,y,z);
+    x=0.05f; y=0.0f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(40, 45, 40);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+
+	x=0.19f; y=0.0f; radius =.02f;
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3ub(40, 45, 40);
+		glVertex2f(x, y);           // Port Main vehicle tyre 1
+		for(i = 0; i <= triangleAmount;i++) {
+			glVertex2f(
+		            x + (radius * cos(i *  twicePi / triangleAmount)),
+			    y + (radius * sin(i * twicePi / triangleAmount))
+			);
+		}
+	glEnd();
+	glPopMatrix();
+}
+void train(GLfloat x=0, GLfloat y=0, GLfloat z=0)
+{
+     glPushMatrix();
+     glTranslated(positiont+x,y,z);
+     tire();
+     tire(.27);
+     tire(-.27);
+     tire(.54);
+     tire(-.54);
+     tire(-.81);
+     draw_line(.79f,0.015,-.81f,.015f,140,140,40,9);
+     draw_container_3d(0.0,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(0.27,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(-0.27,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(0.54,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(-0.54,0.0,0.10,0.25, 89, 26, 38);
+
+     draw_container_3d(-0.81,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(0.79,0.0,0.05,0.05, 89, 26, 38);
+
+     glPopMatrix();
+}
+void trainr(GLfloat x=0, GLfloat y=0, GLfloat z=0)
+{
+     glPushMatrix();
+     glTranslated(positiontr+x,y,z);
+
+     tire();
+     tire(.27);
+     tire(-.27);
+     tire(.54);
+     tire(-.54);
+     tire(-.81);
+     draw_line(.79f,0.015,-.81f,.015f,140,140,40,9);
+     draw_container_3d(0.0,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(0.27,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(-0.27,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(0.54,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(-0.54,0.0,0.10,0.25, 89, 26, 38);
+
+     draw_container_3d(-0.81,0.0,0.10,0.25, 89, 26, 38);
+     draw_container_3d(-0.85,0.0,0.05,0.05, 89, 26, 38);
+     glPopMatrix();
 }
 void car_pickup()
 {
@@ -1341,6 +1415,9 @@ void display() {
 
     rail_line(0.205);
     rail_line(0.27);
+    trainr(0,.28);
+    train(0,.21);
+
 
     draw_v_angle(0);
     draw_v_angle(0.4);
@@ -1349,6 +1426,7 @@ void display() {
     draw_v_angle(1.6);
 
     draw_line(-1.0f, 0.43f,1.0f, 0.43f,136, 136, 136,10);        // bridge road front side railing
+
 
 	glBegin(GL_QUADS);
 	glColor3ub(136, 136, 136);    // bridge side railing bottom axis
@@ -1367,8 +1445,6 @@ void display() {
 
 
 
-    draw_container_3d(0.0,0.0,0.12,0.25);
-
     // Raining
     if (is_rain) {
         glPushMatrix();
@@ -1381,8 +1457,6 @@ void display() {
         glPopMatrix();
 	    glLoadIdentity();
     }
-
-
 	glLoadIdentity();
     glFlush();
 }
